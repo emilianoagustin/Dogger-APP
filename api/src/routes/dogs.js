@@ -1,23 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const {getDogs, getDetail, createDog} = require('../controllers/dog');
 
 //all dogs and query
-router.get('/', async (req, res) => {
-    const {name} = req.query
-    if(name) return res.send('/dogs query enpoint responding')
-    res.send('/dogs enpoint responding')
-});
+router.get('/', getDogs);
 
 //dog detail
-router.get('/:id', async (req, res) => {
-    const {id} = req.params
-    res.send('/dogs/:id enpoint responding' + id)
-});
+router.get('/:id', getDetail);
 
 
 //create dog
-router.post('/', async (req, res) => {
-    res.send('/dogs post enpoint responding')
-});
+router.post('/', createDog);
 
 module.exports = router;
