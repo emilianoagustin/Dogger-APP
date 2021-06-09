@@ -8,7 +8,7 @@ module.exports = getTemperament = async (req, res) => {
         const allDogs = await axios.get(URL);
         allDogs.data.forEach( dog => {
             if(dog.temperament){
-                let splitted = dog.temperament.split(',');
+                let splitted = dog.temperament.split(', ');
                 tempArr = tempArr.concat(splitted);
             }
         });
