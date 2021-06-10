@@ -1,7 +1,6 @@
 const axios = require('axios');
 const {Dog, Temperament} = require('../db');
 const URL = require('../constants/constants');
-const { match } = require('../constants/constants');
 
 const getDogs = async (req, res) => {
     const {name} = req.query;
@@ -25,8 +24,8 @@ const getDogs = async (req, res) => {
         let matched = [];
         if(name){
             allDogs.forEach(dog => {
-                let lower = dog.breedGroup;
-                if(lower && lower.toLowerCase() === name){
+                let breed = dog.breedGroup;
+                if(breed && breed.toLowerCase() === name){
                     matched.push(dog);
                 };
                 if(dog.name.toLowerCase() === name){

@@ -14,7 +14,7 @@ module.exports = getTemperament = async (req, res) => {
         });
         let temperaments = [...new Set(tempArr)];
         for (let i = 0; i < temperaments.length; i++) {
-            const create = await Temperament.create({
+            await Temperament.create({
                 name: temperaments[i],
             });
         }
