@@ -8,13 +8,13 @@ module.exports = getTemperament = async (req, res) => {
         const allDogs = await axios.get(URL);
         allDogs.data.forEach( dog => {
             if(dog.temperament){
-                let splitted = dog.temperament.split(',');
+                let splitted = dog.temperament.split(', ');
                 tempArr = tempArr.concat(splitted);
             }
         });
         let temperaments = [...new Set(tempArr)];
         for (let i = 0; i < temperaments.length; i++) {
-            const create = await Temperament.create({
+            await Temperament.create({
                 name: temperaments[i],
             });
         }
