@@ -1,0 +1,12 @@
+export const GET_DOGS = 'GET_DOGS';
+export const GET_DOG_DETAIL = 'GET_DOG_DETAIL';
+export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
+export const SEARCH_DOGS = 'SEARCH_DOGS';
+
+export const SORT_BY_BREED_ASC = 'SORT_BY_BREED_ASC';
+export const SORT_BY_BREED_DESC = 'SORT_BY_BREED_DESC';
+
+export const SORT_BY_WEIGHT_ASC = 'SORT_BY_WEIGHT_ASC';
+export const SORT_BY_WEIGHT_DESC = 'SORT_BY_WEIGHT_DESC';
+
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
