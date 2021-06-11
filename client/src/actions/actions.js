@@ -15,10 +15,10 @@ export const toggleLoading = () => {
     return {type: TOGGLE_LOADING}
 }
 
-export const getDogs = async (name) => {
-    return (dispatch) => {
-        const response = await axios.get(DOG_URL + name);
-        const allDogs = response.data.json();
+export const getDogs = () => {
+    return async (dispatch) => {
+        const response = await axios.get(DOG_URL);
+        const allDogs = response.data;
         return dispatch({
             type: GET_DOGS,
             payload: allDogs
@@ -26,10 +26,11 @@ export const getDogs = async (name) => {
     }
 }
 
-export const getDogDetail = async (id) => {
-    return (dispatch) => {
-        const response = await axios.get(DOG_URL + id);
-        const dogDetail = response.data.json();
+export const getDogDetail = (id) => {
+    return async (dispatch) => {
+        const response = await axios.get(`${DOG_URL}/${id}`);
+        const dogDetail = response.data;
+        console.log('dogDetail ------>', dogDetail);
         return dispatch({
             type: GET_DOG_DETAIL,
             payload: dogDetail
@@ -37,10 +38,11 @@ export const getDogDetail = async (id) => {
     }
 }
 
-export const getTemperament = async () => {
-    return (dispatch) => {
+export const getTemperament = () => {
+    return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
-        const dogTemperament = response.data.json();
+        const dogTemperament = response.data;
+        console.log('dogTemperament ------>', dogTemperament);
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament
