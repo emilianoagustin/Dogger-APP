@@ -2,6 +2,7 @@ import {
 GET_DOGS,
 GET_DOG_DETAIL,
 GET_TEMPERAMENT,
+SEARCH_DOGS,
 SORT_BY_BREED_ASC,
 SORT_BY_BREED_DESC,
 SORT_BY_WEIGHT_ASC,
@@ -21,6 +22,17 @@ export const getDogs = () => {
         const allDogs = response.data;
         return dispatch({
             type: GET_DOGS,
+            payload: allDogs
+        })
+    }
+}
+
+export const searchDogs = (name) => {
+    return async (dispatch) => {
+        const response = await axios.get(`${DOG_URL}/${name}`);
+        const allDogs = response.data;
+        return dispatch({
+            type: SEARCH_DOGS,
             payload: allDogs
         })
     }
