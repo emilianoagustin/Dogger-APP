@@ -29,7 +29,7 @@ export const getDogs = () => {
 
 export const searchDogs = (name) => {
     return async (dispatch) => {
-        const response = await axios.get(`${DOG_URL}/${name}`);
+        const response = await axios.get(`${DOG_URL}?name=${name}`);
         const allDogs = response.data;
         return dispatch({
             type: SEARCH_DOGS,
