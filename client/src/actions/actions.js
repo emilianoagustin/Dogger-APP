@@ -31,6 +31,7 @@ export const searchDogs = (name) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}?name=${name}`);
         const allDogs = response.data;
+        console.log(allDogs);
         return dispatch({
             type: SEARCH_DOGS,
             payload: allDogs
