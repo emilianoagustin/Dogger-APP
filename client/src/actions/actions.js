@@ -3,6 +3,7 @@ GET_DOGS,
 GET_DOG_DETAIL,
 GET_TEMPERAMENT,
 SEARCH_DOGS,
+SEARCH_INPUT_STATE,
 SORT_BY_BREED_ASC,
 SORT_BY_BREED_DESC,
 SORT_BY_WEIGHT_ASC,
@@ -13,7 +14,11 @@ import axios from 'axios';
 import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
 
 export const toggleLoading = () => {
-    return {type: TOGGLE_LOADING}
+    return {type: TOGGLE_LOADING, payload: true}
+}
+
+export const inputState = (value) => {
+    return {type: SEARCH_INPUT_STATE, payload: value}
 }
 
 export const getDogs = () => {
