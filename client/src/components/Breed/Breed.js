@@ -5,11 +5,13 @@ import { getDogs } from '../../actions/actions';
 function Breed() {
     
     const dogs = useSelector(state => state.dogs);
+    // resultado de busqueda por raza
+    // const breedResults = useSelector(state => state.searchDogs);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getDogs())
-    }, []);
+    }, [dispatch]);
 
         let n = 8;
         let eightArr = dogs.slice(0, n).map( d => {
