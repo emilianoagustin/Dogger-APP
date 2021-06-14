@@ -1,13 +1,6 @@
 export const GET_DOGS = 'GET_DOGS';
 export const GET_DOG_DETAIL = 'GET_DOG_DETAIL';
 export const GET_TEMPERAMENT = 'GET_TEMPERAMENT';
-export const SEARCH_DOGS = 'SEARCH_DOGS';
-export const SEARCH_INPUT_STATE = 'SEARCH_INPUT_STATE';
-
-export const SORT_BY_BREED_ASC = 'SORT_BY_BREED_ASC';
-export const SORT_BY_BREED_DESC = 'SORT_BY_BREED_DESC';
-
-export const SORT_BY_WEIGHT_ASC = 'SORT_BY_WEIGHT_ASC';
-export const SORT_BY_WEIGHT_DESC = 'SORT_BY_WEIGHT_DESC';
+export const GET_DOGS_BY_NAME = 'GET_DOGS_BY_NAME';
 
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';

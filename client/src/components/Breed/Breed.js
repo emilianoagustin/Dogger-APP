@@ -3,20 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDogs } from '../../actions/actions';
 
 function Breed() {
+    const dispatch = useDispatch();
     
     const dogs = useSelector(state => state.dogs);
-    // resultado de busqueda por raza
-    // const breedResults = useSelector(state => state.searchDogs);
-    const dispatch = useDispatch();
+    const breedResults = useSelector(state => state.dogsByName);
 
     useEffect(() => {
         dispatch(getDogs())
     }, [dispatch]);
-
-        let n = 8;
-        let eightArr = dogs.slice(0, n).map( d => {
-            return d
-        })
+    
+    useEffect(() => {
+        console.log(breedResults);
+    }, [breedResults])
+    let n = 8;
+    let eightArr = dogs.slice(0, n).map( d => {
+        return d
+    })
 
     return (
         <div>

@@ -1,22 +1,20 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { inputState, searchDogs } from '../../actions/actions';
+import { searchDogs } from '../../actions/actions';
 
 function SearchInput() {
     
     const dispatch = useDispatch();
-    const value = useSelector(state => state.inputValue);
-    const onChange = (e) => {
-        dispatch(inputState(e.target.value));
-    }
+    const [value, setValue] = useState('')
+
     const handleSearch = () => {
         dispatch(searchDogs(value));
-        dispatch(inputState(''));
+        setValue('')
     }
 
     return (
         <div>
-                <input type='text' placeholder='search breed' value={value} onChange={onChange}/>
+                <input type='text' placeholder='search breed' value={value} onChange={(e) => setValue(e.target.value)}/>
                 <button type='button' onClick={handleSearch}>search</button>
         </div>
     )
