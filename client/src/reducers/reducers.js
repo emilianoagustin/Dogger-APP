@@ -14,11 +14,22 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action){
     switch (action.type) {
-        case GET_DOGS:
+        case GET_DOGS: {
+            const { allDogs, temp } = action.payload
+            if(temp){
+                let filtered = allDogs.filter( 
+                    dog => dog.temperament && dog.temperament.toLowerCase().includes(temp)
+                ) 
+                return{
+                    ...state,
+                    dogs: filtered
+                }
+            }
             return {
                 ...state,
-                dogs: action.payload
+                dogs: allDogs
             }
+        }
         case GET_DOGS_BY_NAME:
             return {
                 ...state,

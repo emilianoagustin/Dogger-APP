@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getTemperament } from '../../actions/actions';
+import { getTemperament, getDogs } from '../../actions/actions';
 
 
 function FilterInput() {
@@ -14,7 +14,13 @@ function FilterInput() {
     }, [dispatch])
 
     const onChange = (e) => {
-        setSelected(selected.concat(', ' + e.target.value))
+        setSelected(e.target.value)
+        // setSelected(selected.concat(e.target.value + ', '))
+    }
+
+    const handleFilter = () => {
+        dispatch(getDogs(selected))
+        setSelected('')
     }
 
     return (
@@ -35,7 +41,7 @@ function FilterInput() {
             </select>
             original<input type='radio'/>
             created<input type='radio'/>
-            <button type='button'>Filter</button>
+            <button type='button' onClick={handleFilter}>Filter</button>
         </div>
     )
 }
