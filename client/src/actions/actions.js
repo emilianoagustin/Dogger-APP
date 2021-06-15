@@ -12,18 +12,17 @@ export const toggleLoading = () => {
     return {type: TOGGLE_LOADING, payload: true}
 }
 
-export const getDogs = (temp, original, created) => {
+export const getDogs = (temp, origin) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
-
+        console.log(origin);
         return dispatch({
             type: GET_DOGS,
             payload: {
                 allDogs,
                 temp,
-                original,
-                created
+                origin
             }
         })
     }

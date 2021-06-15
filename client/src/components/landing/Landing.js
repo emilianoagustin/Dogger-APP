@@ -6,7 +6,7 @@ function Landing() {
         <div>
             <h1>LANDING PAGE</h1>
             <Link to='/dogs'>
-                <button>Ingresar</button>
+                <button>let's get started</button>
             </Link>
         </div>
     )

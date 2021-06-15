@@ -15,9 +15,10 @@ const initialState = {
 export default function rootReducer(state = initialState, action){
     switch (action.type) {
         case GET_DOGS: {
-            const { allDogs, temp } = action.payload
+            const { allDogs, temp, origin } = action.payload
+            let filtered;
             if(temp){
-                let filtered = allDogs.filter( 
+                filtered = allDogs.filter( 
                     dog => dog.temperament && dog.temperament.toLowerCase().includes(temp)
                 ) 
                 return{
@@ -25,9 +26,28 @@ export default function rootReducer(state = initialState, action){
                     dogs: filtered
                 }
             }
+            
+            if(origin){
+                if (origin === 'original') {
+                    filtered = allDogs.filter( dog => dog.flag)
+                    return{
+                        ...state,
+                        dogs: filtered
+                    }
+                } else if (origin === 'created') {
+                    filtered = allDogs.filter( dog => !dog.flag)
+                    return{
+                        ...state,
+                        dogs: filtered
+                    }
+                } else return {
+                    ...state,
+                    dogs: allDogs
+                }
+            }
             return {
-                ...state,
-                dogs: allDogs
+                    ...state,
+                    dogs: allDogs
             }
         }
         case GET_DOGS_BY_NAME:

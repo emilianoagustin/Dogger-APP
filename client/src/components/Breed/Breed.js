@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDogs } from '../../actions/actions';
 
@@ -28,7 +29,9 @@ function Breed() {
                 return (
                     <div key={i}>
                         <ul>
-                            <li>{dog.name}</li>
+                            <Link to={`/dogs/${dog.id || dog.ID}`}>
+                                <li>{dog.name}</li>
+                            </Link>
                             <li>{dog.temperament}</li>
                         </ul>
                         <img src={dog.image} alt='breed_dog_image'/>
