@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDogs } from '../../actions/actions';
 
@@ -7,14 +7,16 @@ function Breed() {
     
     const dogs = useSelector(state => state.dogs);
     const breedResults = useSelector(state => state.dogsByName);
+    // const [shown, setShown] = useState([]);
 
     useEffect(() => {
         dispatch(getDogs())
     }, [dispatch]);
-    
-    useEffect(() => {
-        console.log(breedResults);
-    }, [breedResults])
+
+    // useEffect(() => {
+    //     if(breedResults) setShown(breedResults)
+    //     else setShown(dogs)
+    // }, [breedResults])
     let n = 8;
     let eightArr = dogs.slice(0, n).map( d => {
         return d

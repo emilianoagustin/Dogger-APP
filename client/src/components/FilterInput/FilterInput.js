@@ -7,14 +7,14 @@ function FilterInput() {
     const dispatch = useDispatch();
 
     const temperaments = useSelector(state => state.temperaments);
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState('');
 
     useEffect(() => {
         dispatch(getTemperament());
     }, [dispatch])
 
     const onChange = (e) => {
-        setSelected(selected.concat(e.target.value))
+        setSelected(selected.concat(', ' + e.target.value))
     }
 
     return (

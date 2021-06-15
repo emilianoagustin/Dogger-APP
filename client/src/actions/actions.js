@@ -1,6 +1,6 @@
 import {
 GET_DOGS,
-GET_DOG_DETAIL,
+GET_DOG_BY_ID,
 GET_TEMPERAMENT,
 GET_DOGS_BY_NAME,
 TOGGLE_LOADING,
@@ -35,14 +35,14 @@ export const searchDogs = (name) => {
     }
 }
 
-export const getDogDetail = (id) => {
+export const getDogById = (id) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}/${id}`);
-        const dogDetail = response.data;
-        console.log('dogDetail ------>', dogDetail);
+        const dogById = response.data;
+        console.log('dogById ------>', dogById);
         return dispatch({
-            type: GET_DOG_DETAIL,
-            payload: dogDetail
+            type: GET_DOG_BY_ID,
+            payload: dogById
         })
     }
 }
