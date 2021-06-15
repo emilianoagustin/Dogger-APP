@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { searchDogs } from '../../actions/actions';
+import { searchDogs } from '../../../actions/actions';
 
 function SearchInput() {
     

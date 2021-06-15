@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getTemperament, getDogs } from '../../actions/actions';
+import { getTemperament, getDogs } from '../../../actions/actions';
 
 
 function FilterInput() {
