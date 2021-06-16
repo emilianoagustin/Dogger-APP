@@ -45,10 +45,20 @@ export const getDogById = (id) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}/${id}`);
         const dogById = response.data;
-
+        let dog;
+        if(!dogById.hasOwnProperty('ID')){
+            dog = {
+                    name: dogById.name,
+                    temperament: dogById.temperament,
+                    image: dogById.image.url,
+                    height: dogById.height.metric,
+                    weight: dogById.weight.metric,
+                    lifeSpan: dogById.life_span
+                }
+            }
         return dispatch({
             type: GET_DOG_BY_ID,
-            payload: dogById
+            payload: dog
         })
     }
 }
@@ -57,7 +67,6 @@ export const getTemperament = () => {
     return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
         const dogTemperament = response.data;
-
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament

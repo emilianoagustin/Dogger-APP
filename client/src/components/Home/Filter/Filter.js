@@ -11,9 +11,17 @@ function FilterInput() {
     const [radio, setRadio] = useState('all')
 
     useEffect(() => {
-        dispatch(getTemperament());
-    }, [dispatch])
-
+        dispatch(getTemperament())
+        return () => {
+            dispatch(getTemperament([]))
+        }
+    }, [])
+// useEffect(() => {
+//     effect
+//     return () => {
+//         cleanup
+//     }
+// }, [input])
     const handleSelectChange = (e) => {
         setSelected(e.target.value)
         // setSelected(selected.concat(e.target.value + ', '))

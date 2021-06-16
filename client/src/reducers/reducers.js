@@ -47,7 +47,6 @@ export default function rootReducer(state = initialState, action){
             }
             if(sort) {
                 if(sort === 'nameASC'){
-                    console.log('hola');
                     const sorted = allDogs.sort((a,b) => {
                         return a.name > b.name ? 1 :
                         a.name < b.name ? -1 : 0
@@ -68,24 +67,17 @@ export default function rootReducer(state = initialState, action){
                 ...state,
                 dogsByName: action.payload
             }
-        case GET_DOG_BY_ID:{
-            const {
-                name,
-                height,
-                weight,
-                life_span
-            } = action.payload
-            console.log(height);
+        case GET_DOG_BY_ID:
             return {
                 ...state,
                 dogById: action.payload
             }
-        }
-        case GET_TEMPERAMENT:
+        case GET_TEMPERAMENT:{
             return {
                 ...state,
                 temperaments: action.payload
             }
+        }
         default:
             return state;
     }
