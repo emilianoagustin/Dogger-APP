@@ -67,17 +67,17 @@ export default function rootReducer(state = initialState, action){
                 ...state,
                 dogsByName: action.payload
             }
-        case GET_DOG_BY_ID:{
+        case GET_DOG_BY_ID:
             return {
                 ...state,
                 dogById: action.payload
             }
-        }
-        case GET_TEMPERAMENT:
+        case GET_TEMPERAMENT:{
             return {
                 ...state,
                 temperaments: action.payload
             }
+        }
         default:
             return state;
     }

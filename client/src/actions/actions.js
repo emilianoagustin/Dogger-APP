@@ -67,7 +67,6 @@ export const getTemperament = () => {
     return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
         const dogTemperament = response.data;
-
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament
