@@ -1,28 +1,30 @@
 import {
 GET_DOGS,
-GET_DOG_DETAIL,
+GET_DOG_BY_ID,
 GET_TEMPERAMENT,
-SEARCH_DOGS,
-SORT_BY_BREED_ASC,
-SORT_BY_BREED_DESC,
-SORT_BY_WEIGHT_ASC,
-SORT_BY_WEIGHT_DESC,
+GET_DOGS_BY_NAME,
 TOGGLE_LOADING,
 } from './actionTypes';
 import axios from 'axios';
 import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
 
 export const toggleLoading = () => {
-    return {type: TOGGLE_LOADING}
+    return {type: TOGGLE_LOADING, payload: true}
 }
 
-export const getDogs = () => {
+export const getDogs = (temp, origin, sort) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
+
         return dispatch({
             type: GET_DOGS,
-            payload: allDogs
+            payload: {
+                allDogs,
+                temp,
+                origin,
+                sort
+            }
         })
     }
 }
@@ -31,21 +33,22 @@ export const searchDogs = (name) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}?name=${name}`);
         const allDogs = response.data;
+
         return dispatch({
-            type: SEARCH_DOGS,
+            type: GET_DOGS_BY_NAME,
             payload: allDogs
         })
     }
 }
 
-export const getDogDetail = (id) => {
+export const getDogById = (id) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}/${id}`);
-        const dogDetail = response.data;
-        console.log('dogDetail ------>', dogDetail);
+        const dogById = response.data;
+
         return dispatch({
-            type: GET_DOG_DETAIL,
-            payload: dogDetail
+            type: GET_DOG_BY_ID,
+            payload: dogById
         })
     }
 }
@@ -54,7 +57,7 @@ export const getTemperament = () => {
     return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
         const dogTemperament = response.data;
-        console.log('dogTemperament ------>', dogTemperament);
+
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament

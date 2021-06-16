@@ -5,6 +5,7 @@ const URL = require('../constants/constants');
 module.exports = getTemperament = async (req, res) => {
     try {
         let tempArr = [];
+
         const allDogs = await axios.get(URL);
         allDogs.data.forEach( dog => {
             if(dog.temperament){
@@ -12,14 +13,13 @@ module.exports = getTemperament = async (req, res) => {
                 tempArr = tempArr.concat(splitted);
             }
         });
+
         let temperaments = [...new Set(tempArr)];
-        for (let i = 0; i < temperaments.length; i++) {
-            await Temperament.create({
-                name: temperaments[i],
-            });
-        }
-        res.json(temperaments);
-        
+        temperaments = temperaments.map(temperament => ({name: temperament}));
+
+        const temperament = await Temperament.bulkCreate(temperaments);
+        res.json(temperament);
+
     } catch (error) {
         console.log(error);
     }
