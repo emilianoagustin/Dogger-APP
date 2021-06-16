@@ -1,22 +1,27 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDogs } from '../../actions/actions';
 
 function Breed() {
+    const dispatch = useDispatch();
     
     const dogs = useSelector(state => state.dogs);
-    // resultado de busqueda por raza
-    // const breedResults = useSelector(state => state.searchDogs);
-    const dispatch = useDispatch();
+    const breedResults = useSelector(state => state.dogsByName);
+    // const [shown, setShown] = useState([]);
 
     useEffect(() => {
         dispatch(getDogs())
     }, [dispatch]);
 
-        let n = 8;
-        let eightArr = dogs.slice(0, n).map( d => {
-            return d
-        })
+    // useEffect(() => {
+    //     if(breedResults) setShown(breedResults)
+    //     else setShown(dogs)
+    // }, [breedResults])
+    let n = 8;
+    let eightArr = dogs.slice(0, n).map( d => {
+        return d
+    })
 
     return (
         <div>
@@ -24,7 +29,9 @@ function Breed() {
                 return (
                     <div key={i}>
                         <ul>
-                            <li>{dog.name}</li>
+                            <Link to={`/dogs/${dog.id || dog.ID}`}>
+                                <li>{dog.name}</li>
+                            </Link>
                             <li>{dog.temperament}</li>
                         </ul>
                         <img src={dog.image} alt='breed_dog_image'/>
