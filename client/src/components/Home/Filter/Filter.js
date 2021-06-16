@@ -32,7 +32,7 @@ function FilterInput() {
         <div>
             <label htmlFor='temperaments'>Temperament</label>
             <select name="temperaments" onChange={(e) => handleSelectChange(e)}>
-                <option value=''>select a temperament</option>
+                <option disabled value=''>select a temperament</option>
                 {temperaments.sort((a,b) => {
                     return a.name > b.name ? 1 :
                     a.name < b.name ? -1 : 0

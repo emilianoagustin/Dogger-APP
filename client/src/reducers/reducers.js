@@ -15,7 +15,7 @@ const initialState = {
 export default function rootReducer(state = initialState, action){
     switch (action.type) {
         case GET_DOGS: {
-            const { allDogs, temp, origin } = action.payload
+            const { allDogs, temp, origin, sort } = action.payload
             let filtered;
             if(temp){
                 filtered = allDogs.filter( 
@@ -45,6 +45,19 @@ export default function rootReducer(state = initialState, action){
                     dogs: allDogs
                 }
             }
+            if(sort) {
+                if(sort === 'nameASC'){
+                    console.log('hola');
+                    const sorted = allDogs.sort((a,b) => {
+                        return a.name > b.name ? 1 :
+                        a.name < b.name ? -1 : 0
+                        })
+                    return {
+                        ...state,
+                        dogs: sorted
+                    }
+                }
+            }
             return {
                     ...state,
                     dogs: allDogs
@@ -55,11 +68,19 @@ export default function rootReducer(state = initialState, action){
                 ...state,
                 dogsByName: action.payload
             }
-        case GET_DOG_BY_ID:
+        case GET_DOG_BY_ID:{
+            const {
+                name,
+                height,
+                weight,
+                life_span
+            } = action.payload
+            console.log(height);
             return {
                 ...state,
                 dogById: action.payload
             }
+        }
         case GET_TEMPERAMENT:
             return {
                 ...state,

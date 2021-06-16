@@ -12,17 +12,18 @@ export const toggleLoading = () => {
     return {type: TOGGLE_LOADING, payload: true}
 }
 
-export const getDogs = (temp, origin) => {
+export const getDogs = (temp, origin, sort) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
-        console.log(origin);
+
         return dispatch({
             type: GET_DOGS,
             payload: {
                 allDogs,
                 temp,
-                origin
+                origin,
+                sort
             }
         })
     }
@@ -44,7 +45,7 @@ export const getDogById = (id) => {
     return async (dispatch) => {
         const response = await axios.get(`${DOG_URL}/${id}`);
         const dogById = response.data;
-        console.log('dogById ------>', dogById);
+
         return dispatch({
             type: GET_DOG_BY_ID,
             payload: dogById
