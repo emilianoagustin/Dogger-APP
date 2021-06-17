@@ -32,11 +32,7 @@ function FilterInput() {
             <label htmlFor='temperaments'>Temperament</label>
             <select name="temperaments" onChange={(e) => handleSelectChange(e)}>
                 <option value=''>select a temperament</option>
-                {temperaments.sort((a,b) => {
-                    return a.name > b.name ? 1 :
-                    a.name < b.name ? -1 : 0
-                    })
-                    .map( (t, i) => {
+                {temperaments.map( (t, i) => {
                     return (
                         <option key={i} value={t.name.toLowerCase()}>{t.name}</option>
                     )

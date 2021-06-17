@@ -16,7 +16,7 @@ export const getDogs = (temp, origin, sort) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
-        console.log('temp',temp,'origin',origin,'sort',sort);
+        
         return dispatch({
             type: GET_DOGS,
             payload: {
@@ -75,7 +75,10 @@ export const getDogById = (id) => {
 export const getTemperament = () => {
     return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
-        const dogTemperament = response.data;
+        const dogTemperament = response.data.sort((a,b) => {
+            return a.name > b.name ? 1 :
+            a.name < b.name ? -1 : 0
+        });
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament
