@@ -1,18 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPageNumber } from '../../../actions/actions';
 import { paginateNumbers } from '../../../Utils';
 
-function Pagination() {
+function Pagination({change}) {
     const dispatch = useDispatch()
-    const dogs = useSelector(state => state.dogs);
 
     return (
         <div>
-            {paginateNumbers(8, dogs.length).map( number => (
-                <div>
+            {paginateNumbers(8, change.length).map( number => (
                     <button key={number} onClick={() => dispatch(setPageNumber(number))}>{number}</button>
-                </div>
             ))}
         </div>
     )

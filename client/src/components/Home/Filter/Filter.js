@@ -1,18 +1,13 @@
 import { React, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getTemperament, getDogs } from '../../../actions/actions';
+import { useDispatch } from 'react-redux';
+import { getDogs } from '../../../actions/actions';
 
 
-function FilterInput() {
+function FilterInput({temperaments}) {
     const dispatch = useDispatch();
 
-    const temperaments = useSelector(state => state.temperaments);
     const [selected, setSelected] = useState('');
     const [radio, setRadio] = useState('all')
-
-    useEffect(() => {
-        dispatch(getTemperament())
-    }, [dispatch])
 
     const handleSelectChange = (e) => {
         setSelected(e.target.value)

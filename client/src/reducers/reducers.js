@@ -1,4 +1,5 @@
-import { 
+import {
+    CREATE_DOG, 
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
@@ -8,6 +9,7 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
+    createdDog:{},
     dogs: [],
     dogsByName: [],
     dogById: {},
@@ -117,6 +119,11 @@ export default function rootReducer(state = initialState, action){
             return {
                 ...state,
                 pageNumber: action.payload
+            }
+        case CREATE_DOG:
+            return {
+                ...state,
+                createdDog: action.payload
             }
         default:
             return state;

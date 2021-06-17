@@ -1,4 +1,5 @@
 import {
+CREATE_DOG,
 GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
@@ -87,6 +88,17 @@ export const getTemperament = () => {
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament
+        })
+    }
+}
+
+export const createDog = (createdDog) => {
+    return async (dispatch) => {
+        const request = await axios.post(CREATE_DOG_URL, createdDog);
+        const newDog = request.data;
+        return dispatch({
+            type: CREATE_DOG, 
+            payload: newDog
         })
     }
 }

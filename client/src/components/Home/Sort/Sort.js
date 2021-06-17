@@ -5,7 +5,7 @@ import { getDogs } from '../../../actions/actions';
 function OrderInput() {
     
     const dispatch = useDispatch();
-    const [sort, setSort] = useState('');
+    const [sort, setSort] = useState('nameASC');
 
     useEffect(() => {
         dispatch(getDogs(null, null, sort))
