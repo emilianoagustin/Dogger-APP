@@ -36,8 +36,7 @@ function FilterInput() {
                     return (
                         <option key={i} value={t.name.toLowerCase()}>{t.name}</option>
                     )
-                    })
-                }
+                })}
             </select>
 
                 all<input type='radio' value='all' 

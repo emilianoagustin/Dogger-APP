@@ -2,7 +2,9 @@ import {
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
-    GET_DOGS_BY_NAME
+    GET_DOGS_BY_NAME,
+    SET_PAGE_NUMBER,
+    TOGGLE_LOADING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -10,6 +12,8 @@ const initialState = {
     dogsByName: [],
     dogById: {},
     temperaments: [],
+    isLoading: false,
+    pageNumber: 1
 }
 
 export default function rootReducer(state = initialState, action){
@@ -104,6 +108,16 @@ export default function rootReducer(state = initialState, action){
                 temperaments: action.payload
             }
         }
+        case TOGGLE_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
+        case SET_PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: action.payload
+            }
         default:
             return state;
     }

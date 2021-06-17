@@ -1,9 +1,9 @@
 import { React } from 'react';
-import Breed from '../Breed/Breed';
 import Filter from './Filter/Filter';
 import Order from './Order/Order';
 import SearchBox from './SearchBox/SearchBox';
 import Pagination from './Pagination/Pagination';
+import Dog from './Dog/Dog';
 
 function Home() {
 
@@ -12,7 +12,7 @@ function Home() {
             <SearchBox/>
             <Filter/>
             <Order/>
-            <Breed/>
+            <Dog/>
             <Pagination/>
         </div>
     )

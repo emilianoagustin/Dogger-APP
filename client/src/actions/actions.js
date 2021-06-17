@@ -3,6 +3,7 @@ GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
 GET_DOGS_BY_NAME,
+SET_PAGE_NUMBER,
 TOGGLE_LOADING,
 } from './actionTypes';
 import axios from 'axios';
@@ -10,6 +11,10 @@ import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
 
 export const toggleLoading = () => {
     return {type: TOGGLE_LOADING, payload: true}
+}
+
+export const setPageNumber = (payload) => {
+    return {type: SET_PAGE_NUMBER, payload}
 }
 
 export const getDogs = (temp, origin, sort) => {
