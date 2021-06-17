@@ -16,7 +16,7 @@ export const getDogs = (temp, origin, sort) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
-
+        console.log('temp',temp,'origin',origin,'sort',sort);
         return dispatch({
             type: GET_DOGS,
             payload: {
@@ -55,7 +55,16 @@ export const getDogById = (id) => {
                     weight: dogById.weight.metric,
                     lifeSpan: dogById.life_span
                 }
+        }else{
+            dog = {
+                name: dogById.name,
+                    temperament: dogById.temperaments.map(t => t.name).join(', '),
+                    image: null,
+                    height: dogById.height,
+                    weight: dogById.weight,
+                    lifeSpan: dogById.lifeSpan
             }
+        }
         return dispatch({
             type: GET_DOG_BY_ID,
             payload: dog

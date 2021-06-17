@@ -45,15 +45,41 @@ export default function rootReducer(state = initialState, action){
                     dogs: allDogs
                 }
             }
-            if(sort) {
+            if(sort && sort.includes('name')) {
                 if(sort === 'nameASC'){
-                    const sorted = allDogs.sort((a,b) => {
-                        return a.name > b.name ? 1 :
-                        a.name < b.name ? -1 : 0
-                        })
                     return {
                         ...state,
-                        dogs: sorted
+                        dogs: allDogs.sort((a,b) => {
+                            return a.name.toLowerCase() > b.name.toLowerCase() ? 1 :
+                            a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0
+                            })
+                    }
+                } else {
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.name.toLowerCase() < b.name.toLowerCase() ? 1 :
+                            a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 0
+                            })
+                    }
+                }
+            }
+            if(sort && sort.includes('weight')) {
+                if(sort === 'weightASC'){
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.weight.toLowerCase() > b.weight.toLowerCase() ? 1 :
+                            a.weight.toLowerCase() < b.weight.toLowerCase() ? -1 : 0
+                            })
+                    }
+                } else {
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.weight.toLowerCase() < b.weight.toLowerCase() ? 1 :
+                            a.weight.toLowerCase() > b.weight.toLowerCase() ? -1 : 0
+                            })
                     }
                 }
             }

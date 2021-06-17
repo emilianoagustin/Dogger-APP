@@ -12,19 +12,10 @@ function FilterInput() {
 
     useEffect(() => {
         dispatch(getTemperament())
-        return () => {
-            dispatch(getTemperament([]))
-        }
-    }, [])
-// useEffect(() => {
-//     effect
-//     return () => {
-//         cleanup
-//     }
-// }, [input])
+    }, [dispatch])
+
     const handleSelectChange = (e) => {
         setSelected(e.target.value)
-        // setSelected(selected.concat(e.target.value + ', '))
     }
 
     const handleRadioChange = (e) => {
@@ -40,7 +31,7 @@ function FilterInput() {
         <div>
             <label htmlFor='temperaments'>Temperament</label>
             <select name="temperaments" onChange={(e) => handleSelectChange(e)}>
-                <option disabled value=''>select a temperament</option>
+                <option value=''>select a temperament</option>
                 {temperaments.sort((a,b) => {
                     return a.name > b.name ? 1 :
                     a.name < b.name ? -1 : 0
