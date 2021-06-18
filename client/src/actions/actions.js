@@ -1,8 +1,10 @@
 import {
+CREATE_DOG,
 GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
 GET_DOGS_BY_NAME,
+SET_PAGE_NUMBER,
 TOGGLE_LOADING,
 } from './actionTypes';
 import axios from 'axios';
@@ -12,11 +14,15 @@ export const toggleLoading = () => {
     return {type: TOGGLE_LOADING, payload: true}
 }
 
+export const setPageNumber = (payload) => {
+    return {type: SET_PAGE_NUMBER, payload}
+}
+
 export const getDogs = (temp, origin, sort) => {
     return async (dispatch) => {
         const response = await axios.get(DOG_URL);
         const allDogs = response.data;
-
+        
         return dispatch({
             type: GET_DOGS,
             payload: {
@@ -55,7 +61,16 @@ export const getDogById = (id) => {
                     weight: dogById.weight.metric,
                     lifeSpan: dogById.life_span
                 }
+        }else{
+            dog = {
+                name: dogById.name,
+                    temperament: dogById.temperaments.map(t => t.name).join(', '),
+                    image: null,
+                    height: dogById.height,
+                    weight: dogById.weight,
+                    lifeSpan: dogById.lifeSpan
             }
+        }
         return dispatch({
             type: GET_DOG_BY_ID,
             payload: dog
@@ -66,10 +81,24 @@ export const getDogById = (id) => {
 export const getTemperament = () => {
     return async (dispatch) => {
         const response = await axios.get(TEMPERAMENT_URL);
-        const dogTemperament = response.data;
+        const dogTemperament = response.data.sort((a,b) => {
+            return a.name > b.name ? 1 :
+            a.name < b.name ? -1 : 0
+        });
         return dispatch({
             type: GET_TEMPERAMENT,
             payload: dogTemperament
+        })
+    }
+}
+
+export const createDog = (createdDog) => {
+    return async (dispatch) => {
+        const request = await axios.post(CREATE_DOG_URL, createdDog);
+        const newDog = request.data;
+        return dispatch({
+            type: CREATE_DOG, 
+            payload: newDog
         })
     }
 }

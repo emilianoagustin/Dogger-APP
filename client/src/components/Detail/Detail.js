@@ -13,17 +13,15 @@ function Detail() {
         dispatch(getDogById(id))
     }, [dispatch]);
 
-    //generar condicional para filtrar datos por api o db
-
     return (
         <div>
             <h1>DETAIL PAGE</h1>
-            <p>{dogDetails.name}</p>
-            <p>{dogDetails.temperament}</p>
-            <p>{dogDetails.height}</p>
-            <p>{dogDetails.weight}</p>
+            <p>Name: {dogDetails.name}</p>
+            <p>Temperament: {dogDetails.temperament}</p>
+            <p>Height: {dogDetails.height}</p>
+            <p>Weight: {dogDetails.weight}</p>
+            <p>Life Span: {dogDetails.lifeSpan}</p>
             <img src={dogDetails.image} alt='image not found' />
-
         </div>
     )
 }

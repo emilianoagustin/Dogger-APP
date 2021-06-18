@@ -1,15 +1,21 @@
-import { 
+import {
+    CREATE_DOG, 
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
-    GET_DOGS_BY_NAME
+    GET_DOGS_BY_NAME,
+    SET_PAGE_NUMBER,
+    TOGGLE_LOADING,
 } from "../actions/actionTypes";
 
 const initialState = {
+    createdDog:{},
     dogs: [],
     dogsByName: [],
     dogById: {},
     temperaments: [],
+    isLoading: false,
+    pageNumber: 1
 }
 
 export default function rootReducer(state = initialState, action){
@@ -45,15 +51,41 @@ export default function rootReducer(state = initialState, action){
                     dogs: allDogs
                 }
             }
-            if(sort) {
+            if(sort && sort.includes('name')) {
                 if(sort === 'nameASC'){
-                    const sorted = allDogs.sort((a,b) => {
-                        return a.name > b.name ? 1 :
-                        a.name < b.name ? -1 : 0
-                        })
                     return {
                         ...state,
-                        dogs: sorted
+                        dogs: allDogs.sort((a,b) => {
+                            return a.name.toLowerCase() > b.name.toLowerCase() ? 1 :
+                            a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 0
+                            })
+                    }
+                } else {
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.name.toLowerCase() < b.name.toLowerCase() ? 1 :
+                            a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 0
+                            })
+                    }
+                }
+            }
+            if(sort && sort.includes('weight')) {
+                if(sort === 'weightASC'){
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.weight.toLowerCase() > b.weight.toLowerCase() ? 1 :
+                            a.weight.toLowerCase() < b.weight.toLowerCase() ? -1 : 0
+                            })
+                    }
+                } else {
+                    return {
+                        ...state,
+                        dogs: allDogs.sort((a,b) => {
+                            return a.weight.toLowerCase() < b.weight.toLowerCase() ? 1 :
+                            a.weight.toLowerCase() > b.weight.toLowerCase() ? -1 : 0
+                            })
                     }
                 }
             }
@@ -78,6 +110,21 @@ export default function rootReducer(state = initialState, action){
                 temperaments: action.payload
             }
         }
+        case TOGGLE_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
+        case SET_PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: action.payload
+            }
+        case CREATE_DOG:
+            return {
+                ...state,
+                createdDog: action.payload
+            }
         default:
             return state;
     }

@@ -1,30 +1,16 @@
 import { React, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getTemperament, getDogs } from '../../../actions/actions';
+import { useDispatch } from 'react-redux';
+import { getDogs } from '../../../actions/actions';
 
 
-function FilterInput() {
+function FilterInput({temperaments}) {
     const dispatch = useDispatch();
 
-    const temperaments = useSelector(state => state.temperaments);
     const [selected, setSelected] = useState('');
     const [radio, setRadio] = useState('all')
 
-    useEffect(() => {
-        dispatch(getTemperament())
-        return () => {
-            dispatch(getTemperament([]))
-        }
-    }, [])
-// useEffect(() => {
-//     effect
-//     return () => {
-//         cleanup
-//     }
-// }, [input])
     const handleSelectChange = (e) => {
         setSelected(e.target.value)
-        // setSelected(selected.concat(e.target.value + ', '))
     }
 
     const handleRadioChange = (e) => {
@@ -40,17 +26,12 @@ function FilterInput() {
         <div>
             <label htmlFor='temperaments'>Temperament</label>
             <select name="temperaments" onChange={(e) => handleSelectChange(e)}>
-                <option disabled value=''>select a temperament</option>
-                {temperaments.sort((a,b) => {
-                    return a.name > b.name ? 1 :
-                    a.name < b.name ? -1 : 0
-                    })
-                    .map( (t, i) => {
+                <option value=''>select a temperament</option>
+                {temperaments.map( (t, i) => {
                     return (
                         <option key={i} value={t.name.toLowerCase()}>{t.name}</option>
                     )
-                    })
-                }
+                })}
             </select>
 
                 all<input type='radio' value='all' 
