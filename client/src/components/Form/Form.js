@@ -26,7 +26,6 @@ function Form() {
     }
 
     const handleInputChange = (e) => {
-        console.log(newDog);
         setNewDog({...newDog, [e.target.name]: e.target.value})
     }
 
