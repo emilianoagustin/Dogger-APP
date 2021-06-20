@@ -3,30 +3,30 @@ import { useDispatch } from 'react-redux';
 import { getDogs } from '../../../actions/actions';
 
 
-function FilterInput({temperaments}) {
-    const dispatch = useDispatch();
+function FilterInput({ temperaments, onChange, onClick, value }) {
+    // const dispatch = useDispatch();
 
-    const [selected, setSelected] = useState('');
-    const [radio, setRadio] = useState('all')
+    // const [selected, setSelected] = useState('');
+    // const [radio, setRadio] = useState('all')
 
-    const handleSelectChange = (e) => {
-        setSelected(e.target.value)
-    }
+    // const handleSelectChange = (e) => {
+    //     setSelected(e.target.value)
+    // }
 
-    const handleRadioChange = (e) => {
-        setRadio(e.target.value)
-    }
+    // const handleRadioChange = (e) => {
+    //     setRadio(e.target.value)
+    // }
 
-    const handleFilter = () => {
-        dispatch(getDogs(selected, radio))
-        setSelected('')
-    }
+    // const handleFilter = () => {
+    //     dispatch(getDogs(selected, radio))
+    //     setSelected('')
+    // }
 
     return (
         <div>
             <label htmlFor='temperaments'>Temperament</label>
-            <select name="temperaments" onChange={(e) => handleSelectChange(e)}>
-                <option value=''>select a temperament</option>
+            <select name="temperaments" onChange={(e) => onChange(e.target.value)}>
+                <option value='none'>select a temperament...</option>
                 {temperaments.map( (t, i) => {
                     return (
                         <option key={i} value={t.name.toLowerCase()}>{t.name}</option>
@@ -35,19 +35,19 @@ function FilterInput({temperaments}) {
             </select>
 
                 all<input type='radio' value='all' 
-                    checked={radio === 'all'}
-                    onChange={(e) => handleRadioChange(e)}
+                    checked={value === 'all'}
+                    onChange={(e) => onChange(e.target.value)}
                     />
                 original<input type='radio' value='original' 
-                    checked={radio === 'original'}
-                    onChange={(e) => handleRadioChange(e)}
+                    checked={value === 'original'}
+                    onChange={(e) => onChange(e.target.value)}
                     />
                 created<input type='radio' value='created' 
-                    checked={radio === 'created'}
-                    onChange={(e) => handleRadioChange(e)}
+                    checked={value === 'created'}
+                    onChange={(e) => onChange(e.target.value)}
                     />
 
-            <button type='button' onClick={handleFilter}>Filter</button>
+            <button type='button' onClick={onClick}>Filter</button>
         </div>
     )
 }

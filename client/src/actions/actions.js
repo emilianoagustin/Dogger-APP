@@ -18,34 +18,42 @@ export const setPageNumber = (payload) => {
     return {type: SET_PAGE_NUMBER, payload}
 }
 
-export const getDogs = (temp, origin, sort) => {
-    return async (dispatch) => {
-        const response = await axios.get(DOG_URL);
-        const allDogs = response.data;
-        
-        return dispatch({
-            type: GET_DOGS,
-            payload: {
-                allDogs,
-                temp,
-                origin,
-                sort
-            }
-        })
-    }
+export const getDogs = () => {
+        return async (dispatch) => {
+            const response = await axios.get(DOG_URL);
+            const allDogs = response.data;
+            return dispatch({
+                type: GET_DOGS,
+                payload: allDogs
+            })
+        }
 }
 
-export const searchDogs = (name) => {
-    return async (dispatch) => {
-        const response = await axios.get(`${DOG_URL}?name=${name}`);
-        const allDogs = response.data;
-
-        return dispatch({
-            type: GET_DOGS_BY_NAME,
-            payload: allDogs
-        })
-    }
+export const queryDogs = (values) => {
+    //if(values){
+        return async (dispatch) => {
+            const { name, filter, sort } = values;
+            const response = await axios.get(`${DOG_URL}?name=${name}&filter=${filter}&sort=${sort}`);
+            const allDogs = response.data;
+            console.log(allDogs);
+            return dispatch({
+                type: 'QUERY_DOGS',
+                payload: allDogs
+            })
+        }
+    //}
 }
+// export const searchDogs = (name) => {
+//     return async (dispatch) => {
+//         const response = await axios.get(`${DOG_URL}?name=${name}`);
+//         const allDogs = response.data;
+
+//         return dispatch({
+//             type: GET_DOGS_BY_NAME,
+//             payload: allDogs
+//         })
+//     }
+// }
 
 export const getDogById = (id) => {
     return async (dispatch) => {

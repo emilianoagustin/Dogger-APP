@@ -1,6 +1,6 @@
 const axios = require('axios');
 const {Temperament} = require('../db');
-const URL = require('../constants/constants');
+const { URL } = require('../constants/constants');
 
 module.exports = getTemperament = async (req, res) => {
     try {
