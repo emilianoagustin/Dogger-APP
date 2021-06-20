@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, getTemperament } from '../../actions/actions';
+import { getDogs, getTemperament, queryDogs } from '../../actions/actions';
 import Filter from './Filter/Filter';
 import Sort from './Sort/Sort';
 import SearchBox from './SearchBox/SearchBox';
@@ -10,27 +10,39 @@ import Dog from './Dog/Dog';
 function Home() {
     const dispatch = useDispatch();
     const dogs = useSelector(state => state.dogs);
-    const breedResults = useSelector(state => state.dogsByName);
     const temperaments = useSelector(state => state.temperaments);
-    const [change, setChange] = useState(dogs);
+    const [obj, setObj] = useState({
+        name: '',
+        filter: '',
+        sort: '',
+    });
 
     useEffect(() => {
-            dispatch(getDogs());
-            dispatch(getTemperament())
+        dispatch(getDogs());
+        dispatch(getTemperament())
     }, []);
 
-    useEffect(() => {
-        if(change === dogs) return setChange(breedResults)
-        else return setChange(dogs)
-    }, [breedResults, dogs]);
-
+    const handleSearch = () => {
+        dispatch(queryDogs(obj))
+        setObj({...obj, name: ''})
+    }
+    const handleFilter = () => {
+        dispatch(queryDogs(obj))
+        if(obj.filter === 'all' || obj.filter === 'original' || obj.filter === 'created') setObj({...obj})
+        else setObj({...obj, filter: ''})
+    }
+    const handleSort = (e) => {
+        setObj({...obj, sort: e.target.value})
+        dispatch(queryDogs(obj))
+    }
+    console.log(obj);
     return (
         <div>
-            <SearchBox/>
-            <Filter temperaments={temperaments}/>
-            <Sort/>
-            <Dog change={change}/>
-            <Pagination change={change}/>
+            <SearchBox value={obj.name} onChange={(value) => setObj({...obj, name: value})} onClick={handleSearch}/>
+            <Filter temperaments={temperaments} value={obj.filter} onChange={(value) => setObj({...obj, filter: value})} onClick={handleFilter}/>
+            <Sort onChange={(e) => handleSort(e)}/>
+            <Dog change={dogs}/>
+            <Pagination change={dogs}/>
         </div>
     )
 }
