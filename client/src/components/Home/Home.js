@@ -6,6 +6,7 @@ import Sort from './Sort/Sort';
 import SearchBox from './SearchBox/SearchBox';
 import Pagination from './Pagination/Pagination';
 import Dog from './Dog/Dog';
+import './Home.css';
 
 function Home() {
     const dispatch = useDispatch();
@@ -15,8 +16,9 @@ function Home() {
         name: '',
         filter: '',
         sort: '',
+        mode: ''
     });
-
+    
     useEffect(() => {
         dispatch(getDogs());
         dispatch(getTemperament())
@@ -32,12 +34,13 @@ function Home() {
         else setObj({...obj, filter: ''})
     }
     const handleSort = (e) => {
-        setObj({...obj, sort: e.target.value})
+        console.log(e.target.value);
         dispatch(queryDogs(obj))
+        setObj({...obj, sort: e.target.value})
     }
     console.log(obj);
     return (
-        <div>
+        <div className='container'>
             <SearchBox value={obj.name} onChange={(value) => setObj({...obj, name: value})} onClick={handleSearch}/>
             <Filter temperaments={temperaments} value={obj.filter} onChange={(value) => setObj({...obj, filter: value})} onClick={handleFilter}/>
             <Sort onChange={(e) => handleSort(e)}/>

@@ -1,17 +1,31 @@
 import { React, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createDog } from '../../actions/actions';
+import { selected } from '../../Utils';
+import './Form.css';
 
 function Form() {
     const dispatch = useDispatch();
-
+    const temperaments = useSelector(state => state.temperaments);
     const [newDog, setNewDog] = useState({
         name:'',
         height:'',
         weight:'',
         lifeSpan:'',
-        temperament:''
-    })
+        temperament:[]
+    });
+
+    const handleInputChange = (e) => {
+        setNewDog({...newDog, [e.target.name]: e.target.value})
+    };
+
+    const handleSelected = (e) => {
+        let values = e.target.options;
+        setNewDog({
+            ...newDog,
+            temperament: selected(values)
+        });
+    };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
@@ -21,24 +35,34 @@ function Form() {
             height:'',
             weight:'',
             lifeSpan:'',
-            temperament:''
-        })
-    }
+            temperament:[]
+        });
+    };
 
-    const handleInputChange = (e) => {
-        setNewDog({...newDog, [e.target.name]: e.target.value})
-    }
 
     return (
-        <div>
-            <form onSubmit={handleOnSubmit}>
-                <input type='text' placeholder='name' name='name' value={newDog.name} onChange={handleInputChange}/>
-                <input type='text' placeholder='height' name='height' value={newDog.height} onChange={handleInputChange}/>
-                <input type='text' placeholder='weight' name='weight' value={newDog.weight} onChange={handleInputChange}/>
-                <input type='text' placeholder='life span' name='lifeSpan' value={newDog.lifeSpan} onChange={handleInputChange}/>
-                <input type='text' placeholder='temperament' name='temperament' value={newDog.temperament} onChange={handleInputChange}/>
-                <button type='submit'>create</button>
-            </form>
+        <div className='container'>
+            <div className='form-title'>
+                <h1>Create your own dog</h1>
+            </div>
+            <div className='form-container'>
+                <form onSubmit={handleOnSubmit}>
+                    <input type='text' placeholder='Name' name='name' value={newDog.name} onChange={handleInputChange} required/>
+                    <input type='text' placeholder='Height' name='height' value={newDog.height} onChange={handleInputChange} required/>
+                    <input type='text' placeholder='Weight' name='weight' value={newDog.weight} onChange={handleInputChange} required/>
+                    <input type='text' placeholder='Life span' name='lifeSpan' value={newDog.lifeSpan} onChange={handleInputChange}/>
+                    <select className='form-select' multiple name="temperament" onChange={handleSelected}>
+                        <option value=''>select a temperament...</option>
+                            {temperaments.map( (t, i) => {
+                                return (
+                                    <option key={i} value={t.name.toLowerCase()}>{t.name}</option>
+                                )
+                            })}
+                    </select>
+                    <p>You can choose more than one temperament by pressing Ctrl (windows) or Command (Mac)</p>
+                    <button type='submit'>CREATE</button>
+                </form>
+            </div>
         </div>
     )
 }

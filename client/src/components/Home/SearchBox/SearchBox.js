@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import './SearchBox.css';
 // import { useDispatch } from 'react-redux';
 // import { searchDogs } from '../../../actions/actions';
 
@@ -13,9 +14,9 @@ function SearchInput({ onChange, onClick, value }) {
     // }
 
     return (
-        <div>
-                <input type='text' placeholder='search breed' value={value} onChange={(e) => onChange(e.target.value)}/>
-                <button type='button' onClick={onClick}>search</button>
+        <div className='searchbox-container'>
+                <input className='searchbox-input' type='text' placeholder='search breed' value={value} onChange={(e) => onChange(e.target.value)}/>
+                <button className='searchbox-button' type='button' onClick={onClick}>search</button>
         </div>
     )
 }

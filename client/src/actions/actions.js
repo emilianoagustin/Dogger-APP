@@ -32,8 +32,8 @@ export const getDogs = () => {
 export const queryDogs = (values) => {
     //if(values){
         return async (dispatch) => {
-            const { name, filter, sort } = values;
-            const response = await axios.get(`${DOG_URL}?name=${name}&filter=${filter}&sort=${sort}`);
+            const { name, filter, sort, mode } = values;
+            const response = await axios.get(`${DOG_URL}?name=${name}&filter=${filter}&sort=${sort}&mode=${mode}`);
             const allDogs = response.data;
             console.log(allDogs);
             return dispatch({

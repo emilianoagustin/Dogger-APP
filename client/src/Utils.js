@@ -12,3 +12,12 @@ export const paginateNumbers = (itemsPerPage, totalItems) => {
     }
     return pageNumbers;
 }
+
+export function selected (array) {
+    let aux  = [];
+    for (let i=0; i<array.length;i++) {
+        if(array[i].selected)
+        aux.push(array[i].value);
+    };
+    return aux;
+};

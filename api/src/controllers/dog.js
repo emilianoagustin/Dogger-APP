@@ -3,7 +3,7 @@ const {Dog, Temperament} = require('../db');
 const { URL, SEARCH_URL } = require('../constants/constants');
 
 const getDogs = async (req, res) => {
-    const {name, filter, sort} = req.query;
+    const {name, filter, sort, mode} = req.query;
     try {
         const apiDogs = await axios.get(URL);
         const dbDogs = await Dog.findAll();
@@ -34,86 +34,90 @@ const getDogs = async (req, res) => {
             });
             
             if(foundAPIDogs.length === 0 && foundDBDogs.length === 0){
-                return res.status(404).json({msg: 'Dog not found'})
+                return res.status(404).json({msg: 'Dog not found'});
             };
-            if(foundAPIDogs.length > 0){
-                foundAPIDogs.forEach( d => {
-                    let auxDog = {...d, flag: true}
-                    matched.push(auxDog)
+
+            if(foundAPIDogs){
+                dog.map( dog => {
+                    foundAPIDogs.forEach( d => {
+                        if(dog.id === d.id){
+                            d.image = dog.image;
+                            d.flag = true;
+                            d.height = dog.height;
+                            d.weight = dog.weight;
+                            matched.push(d);
+                        }
+                    });
                 });
             };
-            if(foundDBDogs.length > 0){
+
+            if(foundDBDogs){
                 foundDBDogs.forEach(d => {
                     matched.push(d) 
                 });
             };
-            if(filter !== 'original' && filter !== 'created'){
-                matched = matched.filter( 
-                    dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
-                )
-            }
-            if(sort === 'asc'){
-                const asc = matched.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-                return res.json(asc)
-            };
-            if(sort === 'desc'){
-                const desc = matched.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
-                return res.json(desc)
+            
+            if(sort){
+                switch(sort){
+                    case 'asc':
+                        matched = matched.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+                        break;
+                    case 'desc':
+                        matched = matched.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
+                        break;
+                    case 'ascWeight':
+                        matched = matched.map( d => d.weight.splice('-')).sort((a, b) => parseInt(a) - parseInt(b));
+                        break;
+                };
             };
 
-            if(matched.length === 0) return res.status(400).json({msg: 'Some values are wrong'})
+            if(filter && filter !== 'original' && filter !== 'created'){
+                matched = matched.filter( 
+                    dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
+                );
+            };
+
+            if(matched.length === 0) return res.status(400).json({msg: 'Some values are wrong'});
+
             return res.json(matched);
         };
         
         let filtered;
         if(filter){
-            if(filter === 'original'){
-                filtered = allDogs.filter( dog => dog.flag)
-            }else if(filter === 'created'){
-                filtered = allDogs.filter( dog => !dog.flag)
-            }else if(filter === 'all'){
-                filtered = allDogs
-            }else{
-                filtered = allDogs.filter( 
-                    dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
-                )
-            }
-            if(sort === 'asc'){
-                if(filter === 'original' || filter === 'created'){
-                    const asc = filtered.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-                    return res.json(asc)
-                }else{
-                    const asc = filtered.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-                    return res.json(asc)
-                }
+            switch (filter) {
+                case 'original':
+                    filtered = allDogs.filter( dog => dog.flag);
+                    break;
+                case 'created':
+                    filtered = allDogs.filter( dog => !dog.flag);
+                    break;
+                case 'all':
+                    filtered = allDogs;
+                    break;
+                default:
+                    filtered = allDogs.filter( 
+                        dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
+                    );
+                    break;
             };
-            if(sort === 'desc'){
+
+            if(sort){
                 if(filter === 'original' || filter === 'created'){
-                    const asc = filtered.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
-                    return res.json(asc)
-                }else{
-                    const asc = filtered.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
-                    return res.json(asc)
-                }
-            }
-        return res.json(filtered)
-        }
-        // if(name){
-        //     allDogs.forEach(dog => {
-        //         let breed = dog.breedGroup;
-        //         if(breed && breed.toLowerCase() === name){
-        //             matched.push(dog);
-        //         };
-        //         if(dog.name.toLowerCase() === name){
-        //             matched.push(dog);
-        //         };
-        //     });
-        //     if(matched.length === 0) return res.status(404).json({ message: 'Dog not found'});
-        //     else return res.json(matched);
-        // }
+                    switch(sort){
+                        case 'asc':
+                            filtered = filtered.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+                            break;
+                        case 'desc':
+                            filtered = filtered.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+                            break;
+                    };
+                };
+            };
 
+        return res.json(filtered);
+        };
 
-        res.json(allDogs);
+    res.json(allDogs);
         
     } catch (error) {
         res.status(500).json({message:'Server is not responding'});
@@ -138,7 +142,7 @@ const getDetail = async (req, res) => {
 
 const createDog = async (req, res) => {
     const {name, height, weight, lifeSpan, temperament} = req.body;
-    let temperamentArr = temperament.split(', ');
+    let temperamentArr = temperament;
     try {
         const dog = await Dog.create({
             name,

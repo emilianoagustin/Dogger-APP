@@ -1,0 +1,38 @@
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.filter-container > label{
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: cornsilk;
+    margin-right: 1.8rem;
+}
+
+.filter-container > label > select{
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-left: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.filter-container > button{
+    background-color: #4B778D;
+    color: #fff;
+    width: 5%;
+    height: 100%;
+    padding: 0.5rem;
+    border: none;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.filter-radio input {
+    margin-left: 0.6rem;
+}
