@@ -7,11 +7,11 @@ describe('Dog model', () => {
       console.error('Unable to connect to the database:', err);
     }));
   describe('Validators', () => {
-    beforeEach(() => conn.sync({ force: true }));
+    beforeEach(() => Dog.sync({ force: true }));
     describe('id', () => {
       it('should throw an error if id is null', (done) => {
         Dog.create({
-          ID: null,
+          ID:'',
           name: 'Henry_Dog',
           height: '11',
           weight: '6'
