@@ -3,40 +3,33 @@ import {
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
-    GET_DOGS_BY_NAME,
+    GET_QUERY_DOGS,
     SET_PAGE_NUMBER,
-    TOGGLE_LOADING,
 } from "../actions/actionTypes";
 
 const initialState = {
     createdDog:{},
     dogs: [],
-    // dogsByName: [],
+    dogsByQuery: [],
     dogById: {},
     temperaments: [],
-    isLoading: false,
+    isLoading: true,
     pageNumber: 1
 }
 
 export default function rootReducer(state = initialState, action){
     switch (action.type) {
         case GET_DOGS: {
-            // const { allDogs } = action.payload
             return {
                     ...state,
                     dogs: action.payload
             }
         }
-        case 'QUERY_DOGS':
+        case GET_QUERY_DOGS:
             return {
                 ...state,
-                dogs: action.payload
+                dogsByQuery: action.payload
             }
-        // case GET_DOGS_BY_NAME:
-        //     return {
-        //         ...state,
-        //         dogsByName: action.payload
-        //     }
         case GET_DOG_BY_ID:
             return {
                 ...state,
@@ -48,11 +41,6 @@ export default function rootReducer(state = initialState, action){
                 temperaments: action.payload
             }
         }
-        case TOGGLE_LOADING:
-            return {
-                ...state,
-                isLoading: action.payload
-            }
         case SET_PAGE_NUMBER:
             return {
                 ...state,

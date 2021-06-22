@@ -1,0 +1,32 @@
+.searchbox-container{
+    /* grid-area: searchbox; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 10vh;
+}
+
+.searchbox-input{
+    width:30%;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.searchbox-button{
+    width: 10%;
+    background-color: #4B778D;
+    color: #fff;
+    margin-left: 1.3rem;
+    padding: 0.7rem;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.searchbox-button:hover{
+    background-color: #6dadce;
+    color: rgb(54, 54, 54);
+}

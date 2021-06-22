@@ -1,0 +1,26 @@
+.navbar-container{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    height: 10vh;
+    width: 100%;
+    background-color: #28B5B5;
+    font-size: 2rem;
+    font-family: 'Mukta';
+}
+
+.btn-create{
+    grid-column: 6 / 8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.logo-img{
+    grid-column: 1 / 5;
+    text-decoration: none;
+    background: center / contain no-repeat url('../../assets/dog-logo.png');
+    width: 50%;
+    height: auto;
+}

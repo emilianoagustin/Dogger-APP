@@ -15,9 +15,9 @@ function App() {
         <Route exact path='/' component={Landing}/>
         <>
           <NavBar/>
-          <Route exact path='/dogs' component={Home}/>
+          <Route exact path='/home' component={Home}/>
           <Route path='/dogs/:id' component={Detail}/>
-          <Route exact path='/dog' component={Form}/>
+          <Route exact path='/create_dog' component={Form}/>
         </>
       </Switch>
     </div>

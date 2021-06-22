@@ -6,6 +6,7 @@ import Sort from './Sort/Sort';
 import SearchBox from './SearchBox/SearchBox';
 import Pagination from './Pagination/Pagination';
 import Dog from './Dog/Dog';
+import './Home.css';
 
 function Home() {
     const dispatch = useDispatch();
@@ -19,28 +20,34 @@ function Home() {
 
     useEffect(() => {
         dispatch(getDogs());
-        dispatch(getTemperament())
+        dispatch(getTemperament());
     }, []);
+    
+    useEffect(() => {
+        dispatch(queryDogs(obj))
+        setObj({...obj, sort:''})
+    }, [obj.sort])
+    
+
+    const handleInputChange = (e) => {
+        setObj({...obj, [e.target.name]: e.target.value})
+    };
 
     const handleSearch = () => {
         dispatch(queryDogs(obj))
         setObj({...obj, name: ''})
     }
+
     const handleFilter = () => {
         dispatch(queryDogs(obj))
-        if(obj.filter === 'all' || obj.filter === 'original' || obj.filter === 'created') setObj({...obj})
-        else setObj({...obj, filter: ''})
+        setObj({...obj, filter: ''})
     }
-    const handleSort = (e) => {
-        setObj({...obj, sort: e.target.value})
-        dispatch(queryDogs(obj))
-    }
-    console.log(obj);
+
     return (
-        <div>
-            <SearchBox value={obj.name} onChange={(value) => setObj({...obj, name: value})} onClick={handleSearch}/>
-            <Filter temperaments={temperaments} value={obj.filter} onChange={(value) => setObj({...obj, filter: value})} onClick={handleFilter}/>
-            <Sort onChange={(e) => handleSort(e)}/>
+        <div className='container'>
+            <SearchBox value={obj.name} onChange={handleInputChange} onClick={handleSearch}/>
+            <Filter temperaments={temperaments} value={obj.filter} onChange={handleInputChange} onClick={handleFilter}/>
+            <Sort onChange={handleInputChange}/>
             <Dog change={dogs}/>
             <Pagination change={dogs}/>
         </div>

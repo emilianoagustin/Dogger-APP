@@ -1,0 +1,9 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: center / cover no-repeat url('../../assets/OPSEG70.jpg');
+    min-height: 100vh;
+    font-family: 'Mukta';
+}
