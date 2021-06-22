@@ -1,5 +1,4 @@
 .searchbox-container{
-    /* grid-area: searchbox; */
     display: flex;
     justify-content: center;
     align-items: center;

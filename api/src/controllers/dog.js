@@ -69,9 +69,6 @@ const getDogs = async (req, res) => {
                     case 'desc':
                         matched = matched.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
                         break;
-                    case 'ascWeight':
-                        matched = matched.map( d => d.weight.splice('-')).sort((a, b) => parseInt(a) - parseInt(b));
-                        break;
                 };
             };
 
@@ -96,7 +93,7 @@ const getDogs = async (req, res) => {
 
             if(matched.length === 0) return res.status(400).json({msg: 'Some values are wrong'});
 
-            return res.json(matched);
+        return res.json(matched);
         };
         
         let filtered;
@@ -126,7 +123,7 @@ const getDogs = async (req, res) => {
                         case 'asc':
                             filtered = allDogs.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
                             break;
-                            case 'desc':
+                        case 'desc':
                             filtered = allDogs.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
                             break;
                         };
@@ -148,8 +145,8 @@ const getDogs = async (req, res) => {
                             
                         };
                     };
-                    
-                    return res.json(filtered);
+
+        return res.json(filtered);
         };
 
         if(sort){

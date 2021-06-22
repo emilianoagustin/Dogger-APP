@@ -3,17 +3,14 @@ import {
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
-    GET_QUERY_DOGS,
     SET_PAGE_NUMBER,
 } from "../actions/actionTypes";
 
 const initialState = {
     createdDog:{},
     dogs: [],
-    dogsByQuery: [],
     dogById: {},
     temperaments: [],
-    isLoading: true,
     pageNumber: 1
 }
 
@@ -25,11 +22,6 @@ export default function rootReducer(state = initialState, action){
                     dogs: action.payload
             }
         }
-        case GET_QUERY_DOGS:
-            return {
-                ...state,
-                dogsByQuery: action.payload
-            }
         case GET_DOG_BY_ID:
             return {
                 ...state,

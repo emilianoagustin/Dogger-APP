@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogById, clearDog } from '../../actions/actions';
+import { getDogById } from '../../actions/actions';
 import './Detail.css';
 
 function Detail() {
