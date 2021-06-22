@@ -3,7 +3,6 @@ CREATE_DOG,
 GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
-GET_QUERY_DOGS,
 SET_PAGE_NUMBER,
 } from './actionTypes';
 import axios from 'axios';
