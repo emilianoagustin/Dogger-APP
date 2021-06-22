@@ -160,6 +160,29 @@ const getDogs = async (req, res) => {
                 case 'desc':
                     allDogs = allDogs.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
                     break;
+                case 'ascWeight': {
+                    allDogs = allDogs.sort((a, b) => {
+                        let numA = a.weight.split(' - ');
+                        let numB = b.weight.split(' - ');
+                        let sumA = Math.floor((parseInt(numA[0]) + parseInt(numA[1])) / 2);
+                        let sumB = Math.floor((parseInt(numB[0]) + parseInt(numB[1])) / 2);
+                        if (sumA !== NaN && sumB !== NaN){
+                            return sumA - sumB;
+                        };
+                    });
+                }
+                    break;
+                case 'descWeight': {
+                    allDogs = allDogs.sort((a, b) => {
+                        let numA = a.weight.split(' - ');
+                        let numB = b.weight.split(' - ');
+                        let sumA = Math.floor((parseInt(numA[0]) + parseInt(numA[1])) / 2);
+                        let sumB = Math.floor((parseInt(numB[0]) + parseInt(numB[1])) / 2);
+                        if (sumA !== NaN && sumB !== NaN){
+                            return sumB - sumA;
+                        };
+                    });
+                }
             };
         };
 
