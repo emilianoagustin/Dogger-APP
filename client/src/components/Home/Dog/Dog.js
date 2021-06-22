@@ -13,7 +13,7 @@ function Dog({change}) {
                 return (
                     <div key={i} className='dog-card'>
                         <h2>{dog.name}</h2>
-                        <p>{dog.temperament}</p>
+                        <p>{!dog.flag ? dog.temperaments.map(t => t.name).join(', ') : dog.temperament}</p>
                         <img className='dog-card-img' src={dog.image} alt='breed_dog_image'/>
                         <Link to={`/dogs/${dog.id || dog.ID}`} style={{ textDecoration: 'none' }}>
                             <span>more details</span>
@@ -25,4 +25,4 @@ function Dog({change}) {
     )
 }
 
-export default Dog
+export default Dog;

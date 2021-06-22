@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDog } from '../../actions/actions';
-import { selected } from '../../Utils';
+import { selected, validate } from '../../Utils';
 import './Form.css';
 
 function Form() {
@@ -9,14 +9,20 @@ function Form() {
     const temperaments = useSelector(state => state.temperaments);
     const [newDog, setNewDog] = useState({
         name:'',
-        height:'',
-        weight:'',
+        height:'-',
+        weight:'-',
         lifeSpan:'',
         temperament:[]
     });
+    const [errors, setErrors] = useState({});
 
     const handleInputChange = (e) => {
-        setNewDog({...newDog, [e.target.name]: e.target.value})
+        const validateObj = validate({
+            ...newDog,
+            [e.target.name]: e.target.value
+        });
+        setErrors(validateObj);
+        setNewDog({...newDog, [e.target.name]: e.target.value});
     };
 
     const handleSelected = (e) => {
@@ -32,13 +38,12 @@ function Form() {
         dispatch(createDog(newDog));
         setNewDog({
             name:'',
-            height:'',
-            weight:'',
+            height: '-',
+            weight: '-',
             lifeSpan:'',
             temperament:[]
         });
     };
-
 
     return (
         <div className='container'>
@@ -48,8 +53,11 @@ function Form() {
             <div className='form-container'>
                 <form onSubmit={handleOnSubmit}>
                     <input type='text' placeholder='Name' name='name' value={newDog.name} onChange={handleInputChange} required/>
+                    {errors.name && (<p>{errors.name}</p>)}
                     <input type='text' placeholder='Height' name='height' value={newDog.height} onChange={handleInputChange} required/>
+                    {errors.height && (<p>{errors.height}</p>)}
                     <input type='text' placeholder='Weight' name='weight' value={newDog.weight} onChange={handleInputChange} required/>
+                    {errors.weight && (<p>{errors.weight}</p>)}
                     <input type='text' placeholder='Life span' name='lifeSpan' value={newDog.lifeSpan} onChange={handleInputChange}/>
                     <select className='form-select' multiple name="temperament" onChange={handleSelected}>
                         <option value=''>select a temperament...</option>

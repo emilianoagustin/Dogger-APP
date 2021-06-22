@@ -3,16 +3,11 @@ CREATE_DOG,
 GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
-GET_DOGS_BY_NAME,
+GET_QUERY_DOGS,
 SET_PAGE_NUMBER,
-TOGGLE_LOADING,
 } from './actionTypes';
 import axios from 'axios';
 import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
-
-export const toggleLoading = () => {
-    return {type: TOGGLE_LOADING, payload: true}
-}
 
 export const setPageNumber = (payload) => {
     return {type: SET_PAGE_NUMBER, payload}
@@ -30,30 +25,16 @@ export const getDogs = () => {
 }
 
 export const queryDogs = (values) => {
-    //if(values){
         return async (dispatch) => {
-            const { name, filter, sort, mode } = values;
-            const response = await axios.get(`${DOG_URL}?name=${name}&filter=${filter}&sort=${sort}&mode=${mode}`);
+            const { name, filter, sort } = values;
+            const response = await axios.get(`${DOG_URL}?name=${name}&filter=${filter}&sort=${sort}`);
             const allDogs = response.data;
-            console.log(allDogs);
             return dispatch({
-                type: 'QUERY_DOGS',
+                type: GET_DOGS,
                 payload: allDogs
             })
         }
-    //}
 }
-// export const searchDogs = (name) => {
-//     return async (dispatch) => {
-//         const response = await axios.get(`${DOG_URL}?name=${name}`);
-//         const allDogs = response.data;
-
-//         return dispatch({
-//             type: GET_DOGS_BY_NAME,
-//             payload: allDogs
-//         })
-//     }
-// }
 
 export const getDogById = (id) => {
     return async (dispatch) => {
@@ -71,7 +52,7 @@ export const getDogById = (id) => {
                 }
         }else{
             dog = {
-                name: dogById.name,
+                    name: dogById.name,
                     temperament: dogById.temperaments.map(t => t.name).join(', '),
                     image: null,
                     height: dogById.height,

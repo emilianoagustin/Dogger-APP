@@ -13,7 +13,7 @@ export const paginateNumbers = (itemsPerPage, totalItems) => {
     return pageNumbers;
 }
 
-export function selected (array) {
+export const selected = (array) => {
     let aux  = [];
     for (let i=0; i<array.length;i++) {
         if(array[i].selected)
@@ -21,3 +21,27 @@ export function selected (array) {
     };
     return aux;
 };
+
+export const validate = (input) => {
+    let errors = {};
+    
+    if (!input.name) {
+        errors.name = 'name is required';
+    }
+
+    if (!input.height){
+        errors.height = 'height is required';
+    }
+    else if (!input.height.includes('-')){
+        errors.height = 'height is invalid'
+    }
+
+    if (!input.weight){
+        errors.weight = 'weight is required';
+    }
+    else if (!input.weight.includes('-')){
+        errors.weight = 'weight is invalid'
+    }
+
+    return errors;
+}

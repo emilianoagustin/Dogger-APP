@@ -1,20 +1,18 @@
 .dog-container{
     display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    /* margin-left: auto; */
-}
-
-.dog-card{
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 90vh;
+}
+
+.dog-card{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
     background-color: #d2e69c93;
-    width: 20%;
-    height: 45%;
+    max-width: 50%;
+    height: 100%;
     padding: 15px;
     margin: 0.4rem;
     border-radius: 0.5rem;
@@ -35,7 +33,7 @@
 }
 
 .dog-card-img{
-    max-width: 200px;
+    max-width: 100px;
     height: auto;
     border-radius: 0.5rem;
 }

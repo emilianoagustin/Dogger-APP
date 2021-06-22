@@ -1,13 +1,13 @@
-import { React, useState, useEffect } from 'react';
+import React from 'react';
 import './Sort.css';
 
-function OrderInput({ onChange }) {
+function Sort({ onChange }) {
     
     return (
         <div className='sort-container'>
             <label>
                 Sort results
-                <select name='sorting' onChange={(e) => onChange(e)}>
+                <select name='sort' onChange={(e) => onChange(e)}>
                     <option value=''>sort results by..</option>
                     <option value='asc'>Name: A-Z</option>
                     <option value='desc'>Name: Z-A</option>
@@ -19,4 +19,4 @@ function OrderInput({ onChange }) {
     )
 }
 
-export default OrderInput
+export default Sort;

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const axios = require('axios');
 const {Dog, Temperament} = require('../db');
 const { URL, SEARCH_URL } = require('../constants/constants');
@@ -6,7 +7,7 @@ const getDogs = async (req, res) => {
     const {name, filter, sort, mode} = req.query;
     try {
         const apiDogs = await axios.get(URL);
-        const dbDogs = await Dog.findAll();
+        const dbDogs = await Dog.findAll({ include: Temperament });
         const dog = apiDogs.data.map(dog => {
             return {
                 id:dog.id,
@@ -29,8 +30,11 @@ const getDogs = async (req, res) => {
             let foundAPIDogs = getDogs.data;
             let foundDBDogs = await Dog.findAll({
                 where: {
-                    name: name    
-                }
+                    name: {
+                        [Op.iLike]: `%${name}%`,
+                    }    
+                },
+                include: [Temperament]
             });
             
             if(foundAPIDogs.length === 0 && foundDBDogs.length === 0){
@@ -71,11 +75,24 @@ const getDogs = async (req, res) => {
                 };
             };
 
-            if(filter && filter !== 'original' && filter !== 'created'){
-                matched = matched.filter( 
-                    dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
-                );
-            };
+            if(filter){
+                switch (filter) {
+                    case 'original':
+                        matched = matched.filter( dog => dog.flag);
+                        break;
+                    case 'created':
+                        matched = matched.filter( dog => !dog.flag);
+                        break;
+                    case 'all':
+                        matched;
+                        break;
+                    default:
+                        matched = matched.filter( 
+                            dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
+                        );
+                        break;
+                };
+            }
 
             if(matched.length === 0) return res.status(400).json({msg: 'Some values are wrong'});
 
@@ -94,31 +111,60 @@ const getDogs = async (req, res) => {
                 case 'all':
                     filtered = allDogs;
                     break;
-                default:
+                default:{
                     filtered = allDogs.filter( 
                         dog => dog.temperament && dog.temperament.toLowerCase().includes(filter.toLowerCase())
                     );
                     break;
+                }
             };
 
+            
             if(sort){
                 if(filter === 'original' || filter === 'created'){
                     switch(sort){
                         case 'asc':
-                            filtered = filtered.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+                            filtered = allDogs.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+                            break;
+                            case 'desc':
+                            filtered = allDogs.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+                            break;
+                        };
+                }else{
+                    switch(sort){
+                        case 'asc':
+                            filtered = allDogs.sort( (a, b) => 
+                            a.temperament && a.temperament.toLowerCase() > b.temperament && b.temperament.toLowerCase() ?
+                            1 : -1
+                            );
                             break;
                         case 'desc':
-                            filtered = filtered.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
-                            break;
+                            filtered = allDogs.sort( (a, b) => 
+                                a.temperament && a.temperament.toLowerCase() < b.temperament && b.temperament.toLowerCase() ?
+                                1 : -1
+                                );
+                                break;
+                            };
+                            
+                        };
                     };
-                };
-            };
+                    
+                    return res.json(filtered);
+        };
 
-        return res.json(filtered);
+        if(sort){
+            switch(sort){
+                case 'asc':
+                    allDogs = allDogs.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+                    break;
+                case 'desc':
+                    allDogs = allDogs.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+                    break;
+            };
         };
 
     res.json(allDogs);
-        
+
     } catch (error) {
         res.status(500).json({message:'Server is not responding'});
     }
@@ -142,6 +188,7 @@ const getDetail = async (req, res) => {
 
 const createDog = async (req, res) => {
     const {name, height, weight, lifeSpan, temperament} = req.body;
+    
     let temperamentArr = temperament;
     try {
         const dog = await Dog.create({
