@@ -1,0 +1,42 @@
+.dog-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.dog-card{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    background-color: #d2e69c93;
+    max-width: 50%;
+    height: 100%;
+    padding: 15px;
+    margin: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.dog-card > p{
+    font-weight: bold;
+}
+
+.dog-card span{
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.4rem;
+    background-color: #4B778D;
+    color: white;
+    cursor: pointer;
+}
+
+.dog-card-img{
+    max-width: 100px;
+    height: auto;
+    border-radius: 0.5rem;
+}
+.dog-card a{
+    margin-top: 0.7rem;
+}

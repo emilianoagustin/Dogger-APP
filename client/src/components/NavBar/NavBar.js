@@ -1,14 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import './NavBar.css';
 
 function NavBar() {
+    const handleRefresh = () => { 
+        if(window.location.href.includes('home')) window.location.reload(); 
+    }
     return (
-        <div>
-            <Link to='/dogs'>
-                <p>HOME</p>
+        <div className='navbar-container'>
+            <Link to='/home' className='logo-img' onClick={handleRefresh}>
+                <span></span>
             </Link>
-            <Link to='/dog'>
-                <p>CREATE</p>
+            <Link to='/create_dog' className='btn-create'>
+                <p>Create a dog</p>
             </Link>
         </div>
     )

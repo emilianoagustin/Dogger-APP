@@ -1,90 +1,55 @@
-import { 
+import {
+    CREATE_DOG, 
     GET_DOGS, 
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
-    GET_DOGS_BY_NAME
+    GET_QUERY_DOGS,
+    SET_PAGE_NUMBER,
 } from "../actions/actionTypes";
 
 const initialState = {
+    createdDog:{},
     dogs: [],
-    dogsByName: [],
+    dogsByQuery: [],
     dogById: {},
     temperaments: [],
+    isLoading: true,
+    pageNumber: 1
 }
 
 export default function rootReducer(state = initialState, action){
     switch (action.type) {
         case GET_DOGS: {
-            const { allDogs, temp, origin, sort } = action.payload
-            let filtered;
-            if(temp){
-                filtered = allDogs.filter( 
-                    dog => dog.temperament && dog.temperament.toLowerCase().includes(temp)
-                ) 
-                return{
-                    ...state,
-                    dogs: filtered
-                }
-            }
-            
-            if(origin){
-                if (origin === 'original') {
-                    filtered = allDogs.filter( dog => dog.flag)
-                    return{
-                        ...state,
-                        dogs: filtered
-                    }
-                } else if (origin === 'created') {
-                    filtered = allDogs.filter( dog => !dog.flag)
-                    return{
-                        ...state,
-                        dogs: filtered
-                    }
-                } else return {
-                    ...state,
-                    dogs: allDogs
-                }
-            }
-            if(sort) {
-                if(sort === 'nameASC'){
-                    console.log('hola');
-                    const sorted = allDogs.sort((a,b) => {
-                        return a.name > b.name ? 1 :
-                        a.name < b.name ? -1 : 0
-                        })
-                    return {
-                        ...state,
-                        dogs: sorted
-                    }
-                }
-            }
             return {
                     ...state,
-                    dogs: allDogs
+                    dogs: action.payload
             }
         }
-        case GET_DOGS_BY_NAME:
+        case GET_QUERY_DOGS:
             return {
                 ...state,
-                dogsByName: action.payload
+                dogsByQuery: action.payload
             }
-        case GET_DOG_BY_ID:{
-            const {
-                name,
-                height,
-                weight,
-                life_span
-            } = action.payload
-            console.log(height);
+        case GET_DOG_BY_ID:
             return {
                 ...state,
                 dogById: action.payload
             }
-        }
-        case GET_TEMPERAMENT:
+        case GET_TEMPERAMENT:{
             return {
                 ...state,
                 temperaments: action.payload
+            }
+        }
+        case SET_PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: action.payload
+            }
+        case CREATE_DOG:
+            return {
+                ...state,
+                createdDog: action.payload
             }
         default:
             return state;

@@ -1,0 +1,38 @@
+.landing-container{
+    background: center / cover no-repeat url('../../assets/dog-landing.jpg');
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1em 0em;
+    grid-auto-flow: row;
+    grid-template-areas:
+    ". . ."                    
+    ". section section"
+    ". . .";
+    font-family: 'Mukta';
+    font-size: 1.9rem;
+}
+
+.landing-section{
+    grid-area: section;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10rem;
+}
+
+.landing-section button {
+    background-color: #28B5B5;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    margin-top: 1.2rem;
+}
+
+.landing-section p {
+    font-size: 1.5rem;
+}

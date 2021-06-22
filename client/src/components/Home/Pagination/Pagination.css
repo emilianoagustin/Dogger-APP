@@ -1,0 +1,23 @@
+.pagination-container{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    width: 80%;
+    height: 10vh;
+}
+
+.pagination-button {
+    width: 10%;
+    height: 30%;
+    background-color: #8FD9A8;
+    color: #fff;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pagination-button:hover{
+    background-color: #659976;
+    color: rgb(83, 83, 83);
+}
