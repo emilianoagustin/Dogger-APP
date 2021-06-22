@@ -1,8 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const { expect } = require('chai');
 const session = require('supertest-session');
 const app = require('../../src/app.js');
-const { Dog, conn } = require('../../src/db.js');
+const { Dog, Temperament, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const dog = {
@@ -16,49 +15,68 @@ describe('Dogs routes', () => {
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
-  beforeEach(() => Dog.sync({ force: true })
+  beforeEach(() => conn.sync({ force: true })
     .then(() => Dog.create(dog)));
 
   describe('GET /dogs', () => {
     it('should get 200', () => {
-      return agent.get('/dogs').expect(200);
+      agent.get('/dogs').expect(200);
     });
-    it('espera que responda con un json', () => {
-      return agent.get('/dogs')
+    it('should response with a json', () => {
+      agent.get('/dogs')
         .expect('Content-Type', /json/);
     });
   });
   describe('GET /dogs?name=', () => {
-    it('responde con 404 cuando el Dog no existe', () => {
-      return agent.get('/dogs?name=wrongdogname')
+    it('should get 404 when dog not found', () => {
+      agent.get('/dogs?name=wrongdogname')
         .expect(404);
     });
-    it('responde con 200 cuando el Dog existe', () => {
-      return agent.get('/dogs?name=terrier')
+    it('should get 200 if dog was found', () => {
+      agent.get('/dogs?name=henry_dog')
         .expect(200);
     });
-    it('espera que responda con un json', () => {
-      return agent.get('/dogs?name=terrier')
+    it('should response with a json', () => {
+      agent.get('/dogs?name=terrier')
         .expect('Content-Type', /json/);
     });
   });
   describe('GET /dogs/:id', () => {
-    it('responde con 404 cuando el Dog no existe', () => {
-      return agent.get('/999')
+    it('should get 404 when dog not found', () => {
+      agent.get('/8654')
         .expect(404);
     });
-    it('responde con 200 cuando el Dog existe', () => {
-      return agent.get('/200')
+    it('should get 200 if dog was found', () => {
+      agent.get('dogs/200')
         .expect(200);
     });
   });
   describe('POST /dog', () => {
-    it('responde con 400 cuando faltan campos requeridos', () => {
-      return agent.post('/dog')
+    it('should get 400 when some fields are missing', () => {
+      agent.post('/dog')
         .send({
           weight: '23'
         })
         .expect(400);
+    });
+    it('create a dog in database', () => {
+      agent.post('/dog')
+        .send({
+          name: 'luke',
+          height: '6 - 10',
+          weight: '7 - 12',
+          lifeSpan: '10'
+        })
+        .then(() => {
+          return Dog.findOne({
+            where: {
+              name: 'luke'
+            }
+          });
+        })
+        .then(dog => {
+          expect(dog).to.exist;
+        });
     });
   });
 });
