@@ -11,9 +11,10 @@ function NavBar() {
         if(window.location.href.includes('home')) {
             window.location.reload();
         }
-        dispatch(getDogs());
-        dispatch(getTemperament());
-    }
+        dispatch(getDogs());    
+        dispatch(getTemperament());    
+    };
+
     return (
         <div className='navbar-container'>
             <Link to='/home' className='logo-img' onClick={handleRefresh}>
