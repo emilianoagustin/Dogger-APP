@@ -4,12 +4,17 @@ GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
 SET_PAGE_NUMBER,
+CLEAR_DOG
 } from './actionTypes';
 import axios from 'axios';
 import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
 
 export const setPageNumber = (payload) => {
     return {type: SET_PAGE_NUMBER, payload}
+}
+
+export const clearDog = () => {
+    return {type: CLEAR_DOG}
 }
 
 export const getDogs = () => {

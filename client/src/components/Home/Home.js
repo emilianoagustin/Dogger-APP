@@ -38,8 +38,11 @@ function Home() {
     }
 
     const handleSort = () => {
-        dispatch(queryDogs(obj))
-        setObj({...obj, sort:''})
+        if(obj.sort === '') return;
+        else {
+            dispatch(queryDogs(obj));
+            setObj({...obj, sort:''});
+        }
     }
 
     return (
