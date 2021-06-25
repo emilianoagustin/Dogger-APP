@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, getTemperament, queryDogs } from '../../actions/actions';
+import { queryDogs } from '../../actions/actions';
 import Filter from './Filter/Filter';
 import Sort from './Sort/Sort';
 import SearchBox from './SearchBox/SearchBox';
@@ -17,11 +17,6 @@ function Home() {
         filter: '',
         sort: '',
     });
-
-    useEffect(() => {
-        dispatch(getDogs());
-        dispatch(getTemperament());
-    }, []);
 
     const handleInputChange = (e) => {
         setObj({...obj, [e.target.name]: e.target.value})
