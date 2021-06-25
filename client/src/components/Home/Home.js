@@ -22,12 +22,6 @@ function Home() {
         dispatch(getDogs());
         dispatch(getTemperament());
     }, []);
-    
-    useEffect(() => {
-        dispatch(queryDogs(obj))
-        setObj({...obj, sort:''})
-    }, [obj.sort])
-    
 
     const handleInputChange = (e) => {
         setObj({...obj, [e.target.name]: e.target.value})
@@ -43,11 +37,16 @@ function Home() {
         setObj({...obj, filter: ''})
     }
 
+    const handleSort = () => {
+        dispatch(queryDogs(obj))
+        setObj({...obj, sort:''})
+    }
+
     return (
         <div className='container'>
             <SearchBox value={obj.name} onChange={handleInputChange} onClick={handleSearch}/>
             <Filter temperaments={temperaments} value={obj.filter} onChange={handleInputChange} onClick={handleFilter}/>
-            <Sort onChange={handleInputChange}/>
+            <Sort onChange={handleInputChange} onClick={handleSort}/>
             <Dog change={dogs}/>
             <Pagination change={dogs}/>
         </div>
