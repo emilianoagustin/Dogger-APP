@@ -19,7 +19,7 @@ function Landing() {
                 <p>Find and know all about your favorite dogs
                 </p>
                 <Link to='/home'>
-                    <button>let's get started!</button>
+                    <button className='landing-button'><span>let's get started!</span></button>
                 </Link>
             </div>
         </div>
