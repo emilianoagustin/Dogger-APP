@@ -1,18 +1,26 @@
-.dog-container{
+/* .dog-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-}
-
-.dog-card{
+} */
+.dog-container{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
-    background-color: #d2e69c93;
-    max-width: 50%;
-    height: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 3fr));
+    grid-template-rows: 3fr 3fr;
+    gap: 10px 30px;
+    max-width: 80vw;
+}
+.dog-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #032b4688;
+    color: #ffffff;
+    min-width: 50%;
+    min-height: 60%;
     padding: 15px;
     margin: 0.4rem;
     border-radius: 0.5rem;
@@ -20,21 +28,31 @@
 
 .dog-card > p{
     font-weight: bold;
+    text-align: center;
 }
 
 .dog-card span{
     font-size: 0.9rem;
     font-weight: bold;
     border-radius: 0.5rem;
-    padding: 0.2rem 0.4rem;
-    background-color: #4B778D;
+    padding: 0.3rem 0.5rem;
+    /* background-color: #4B778D;
     color: white;
+    cursor: pointer; */
+    border: 2px solid #4B778D;
+    background-color: #032b4628;
+    color: #ffffff;
     cursor: pointer;
+    transition: 0.7s;
 }
 
+.dog-card span:hover {
+    background-color: #4B778D;
+    color: rgb(255, 255, 255);;
+}
 .dog-card-img{
-    max-width: 100px;
-    height: auto;
+    max-width: 80%;
+    height: 35%;
     border-radius: 0.5rem;
 }
 .dog-card a{
