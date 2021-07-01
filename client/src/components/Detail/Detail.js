@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogById } from '../../actions/actions';
+import { getDogById, clearDog } from '../../actions/actions';
 import './Detail.css';
 
 function Detail() {
@@ -9,10 +9,13 @@ function Detail() {
 
     const dispatch = useDispatch();
     const dogDetails = useSelector(state => state.dogById);
-    
+
     useEffect(() => {
         dispatch(getDogById(id))
-    }, [id]);
+        return () => {
+            dispatch(clearDog())
+        }
+    }, [dispatch, id]);
 
     return (
         <div className='container'>

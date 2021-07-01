@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogs, getTemperament, queryDogs } from '../../actions/actions';
+import { queryDogs } from '../../actions/actions';
 import Filter from './Filter/Filter';
 import Sort from './Sort/Sort';
 import SearchBox from './SearchBox/SearchBox';
@@ -18,17 +18,6 @@ function Home() {
         sort: '',
     });
 
-    useEffect(() => {
-        dispatch(getDogs());
-        dispatch(getTemperament());
-    }, []);
-    
-    useEffect(() => {
-        dispatch(queryDogs(obj))
-        setObj({...obj, sort:''})
-    }, [obj.sort])
-    
-
     const handleInputChange = (e) => {
         setObj({...obj, [e.target.name]: e.target.value})
     };
@@ -43,11 +32,19 @@ function Home() {
         setObj({...obj, filter: ''})
     }
 
+    const handleSort = () => {
+        if(obj.sort === '') return;
+        else {
+            dispatch(queryDogs(obj));
+            setObj({...obj, sort:''});
+        }
+    }
+
     return (
         <div className='container'>
             <SearchBox value={obj.name} onChange={handleInputChange} onClick={handleSearch}/>
             <Filter temperaments={temperaments} value={obj.filter} onChange={handleInputChange} onClick={handleFilter}/>
-            <Sort onChange={handleInputChange}/>
+            <Sort onChange={handleInputChange} onClick={handleSort}/>
             <Dog change={dogs}/>
             <Pagination change={dogs}/>
         </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import './Sort.css';
 
-function Sort({ onChange }) {
+function Sort({ onChange, onClick }) {
     
     return (
         <div className='sort-container'>
             <label>
                 Sort results
-                <select name='sort' onChange={(e) => onChange(e)}>
+                <select name='sort' onChange={(e) => onChange(e)} onClick={onClick}>
                     <option value=''>sort results by..</option>
                     <option value='asc'>Name: A-Z</option>
                     <option value='desc'>Name: Z-A</option>

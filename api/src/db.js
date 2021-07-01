@@ -5,6 +5,8 @@ const path = require('path');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
+const axios = require('axios');
+const { URL } = require('./constants/constants');
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -36,6 +38,26 @@ const { Dog, Temperament } = sequelize.models;
 // Product.hasMany(Reviews);
 Dog.belongsToMany(Temperament, { through: 'dog_temperament' })
 Temperament.belongsToMany(Dog, { through: 'dog_temperament' })
+
+//llamo a la API y guardo todos los temperamentos en mi DB
+const createTemperaments = async () => {
+  let tempArr = [];
+  const allDogs = await axios.get(URL);
+  allDogs.data.forEach( dog => {
+      if(dog.temperament){
+        let splitted = dog.temperament.split(', ');
+        tempArr = tempArr.concat(splitted);
+      }
+  });
+
+  let temperaments = [...new Set(tempArr)];
+  temperaments = temperaments.map(temperament => ({name: temperament}));
+  const temperament = await Temperament.bulkCreate(temperaments);
+
+  return temperament;
+}
+
+createTemperaments();
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

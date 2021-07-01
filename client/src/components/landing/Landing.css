@@ -24,15 +24,48 @@
     margin-left: 10rem;
 }
 
-.landing-section button {
-    background-color: #28B5B5;
-    color: #fff;
-    padding: 1rem;
-    font-size: 1.3rem;
-    border-radius: 0.5rem;
-    margin-top: 1.2rem;
-}
-
 .landing-section p {
     font-size: 1.5rem;
 }
+
+.landing-button {
+    display: inline-block;
+    border-radius: 0.5rem;
+    background-color: #28B5B5;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin-top: 1.2rem;
+    transition: all 0.5s;
+    cursor: pointer;
+    width: 250px;
+}
+
+.landing-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.landing-button span::after {
+    content: '\21DB';
+    font-weight: 400;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -1.2rem;
+    transition: 0.5s;
+}
+
+.landing-button:hover span {
+    padding-right: 1.8rem;
+}
+
+.landing-button:hover span::after {
+    opacity: 1;
+    right: 0;
+}
+

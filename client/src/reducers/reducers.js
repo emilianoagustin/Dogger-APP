@@ -4,6 +4,7 @@ import {
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
     SET_PAGE_NUMBER,
+    CLEAR_DOG
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -19,7 +20,8 @@ export default function rootReducer(state = initialState, action){
         case GET_DOGS: {
             return {
                     ...state,
-                    dogs: action.payload
+                    dogs: [...action.payload],
+                    pageNumber: 1
             }
         }
         case GET_DOG_BY_ID:
@@ -42,6 +44,11 @@ export default function rootReducer(state = initialState, action){
             return {
                 ...state,
                 createdDog: action.payload
+            }
+        case CLEAR_DOG:
+            return {
+                ...state,
+                dogById: {}
             }
         default:
             return state;
