@@ -9,8 +9,20 @@ export const paginateNumbers = (itemsPerPage, totalItems) => {
     let pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++){
         pageNumbers.push(i)
-    }
+    };
     return pageNumbers;
+}
+
+export const prevPage = (currentPageNumber) => {
+    if(currentPageNumber < 2) return 1;
+    if(currentPageNumber > 1) return currentPageNumber - 1;
+}
+
+export const nextPage = (currentPageNumber, totalItems, itemsPerPage) => {
+    let lastPage = Math.ceil(totalItems / itemsPerPage);
+    console.log(lastPage);
+    if(currentPageNumber === lastPage) return lastPage;
+    else return currentPageNumber + 1;
 }
 
 export const selected = (array) => {
