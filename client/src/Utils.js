@@ -20,7 +20,6 @@ export const prevPage = (currentPageNumber) => {
 
 export const nextPage = (currentPageNumber, totalItems, itemsPerPage) => {
     let lastPage = Math.ceil(totalItems / itemsPerPage);
-    console.log(lastPage);
     if(currentPageNumber === lastPage) return lastPage;
     else return currentPageNumber + 1;
 }
