@@ -2,6 +2,7 @@ import { React, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDogById, clearDog } from '../../actions/actions';
+import { DOG_DEFAULT_IMAGE } from '../../constants';
 import './Detail.css';
 
 function Detail() {
@@ -28,7 +29,7 @@ function Detail() {
                     <p>Life Span: {dogDetails.lifeSpan}</p>
                 </div>
                 <div className='detail-img'>
-                    <img src={dogDetails.image} alt='image not found' />
+                    <img src={dogDetails.image ? dogDetails.image : DOG_DEFAULT_IMAGE} alt='image not found' />
                 </div>
             <Link to='/home' className='btn-back'>
                 <p>BACK</p>
