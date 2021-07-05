@@ -20,7 +20,6 @@ export const prevPage = (currentPageNumber) => {
 
 export const nextPage = (currentPageNumber, totalItems, itemsPerPage) => {
     let lastPage = Math.ceil(totalItems / itemsPerPage);
-    console.log(lastPage);
     if(currentPageNumber === lastPage) return lastPage;
     else return currentPageNumber + 1;
 }
@@ -41,18 +40,18 @@ export const validate = (input) => {
         errors.name = 'name is required';
     }
 
-    if (!input.height){
-        errors.height = 'height is required';
+    if (!input.minHeight){
+        errors.minHeight = 'minimum height is required';
     }
-    else if (!input.height.includes('-')){
-        errors.height = 'height is invalid'
+    if (!input.maxHeight){
+        errors.maxHeight = 'maximum height is required';
     }
-
-    if (!input.weight){
-        errors.weight = 'weight is required';
+    
+    if (!input.minWeight){
+        errors.minWeight = 'minimum weight is required';
     }
-    else if (!input.weight.includes('-')){
-        errors.weight = 'weight is invalid'
+    if (!input.maxWeight){
+        errors.maxWeight = 'maximum weight is required';
     }
 
     return errors;

@@ -19,11 +19,6 @@
     cursor: pointer;
 }
 
-/* .pagination-button:hover{
-    background-color: #659976;
-    color: rgb(83, 83, 83);
-} */
-
 .active, .pagination-button:hover{
     background-color: #a7ccdf;
     color: rgb(83, 83, 83);
