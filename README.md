@@ -22,7 +22,7 @@ You can access a detailed view of each breed of dog and you also have a form to 
 
 ## Installation
 
-__IMPORTANT__: to properly run this app on your machine you have to know the database is build with PosgreSQL and with Sequelize as ORM, the code is entirely develop with this technologies, feel free to use whatever DB you want on a previously forked repo.
+__IMPORTANT__: to properly run this app on your machine you have to know the database is build with PostgreSQL and with Sequelize as ORM, the code is entirely develop with this technologies, feel free to use whatever DB you want on a previously forked repo.
 
 >First clone this repository to your machine
 ```
