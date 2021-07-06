@@ -25,7 +25,7 @@ function Home() {
             dispatch(loading())
             dispatch(getDogs())
         }
-            if(temperaments.length === 0) dispatch(getTemperament())
+        if(temperaments.length === 0) dispatch(getTemperament())
     }, [dispatch, dogs, temperaments]);
 
     const handleInputChange = (e) => {
@@ -39,6 +39,7 @@ function Home() {
     }
 
     const handleFilter = () => {
+        dispatch(loading())
         dispatch(queryDogs(obj))
         setObj({...obj, filter: ''})
     }
@@ -46,6 +47,7 @@ function Home() {
     const handleSort = () => {
         if(obj.sort === '') return;
         else {
+            dispatch(loading())
             dispatch(queryDogs(obj));
             setObj({...obj, sort:''});
         }
