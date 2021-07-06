@@ -16,7 +16,9 @@ function Dog({change}) {
                     <div key={i} className='dog-card'>
                         <h2>{dog.name}</h2>
                         <p>{!dog.flag ? dog.temperaments.map(t => t.name).join(', ') : dog.temperament}</p>
-                        <img className='dog-card-img' src={dog.image ? dog.image : DOG_DEFAULT_IMAGE} alt='breed_dog_image'/>
+                        <div className='dog-card-img'>
+                            <img src={dog.image ? dog.image : DOG_DEFAULT_IMAGE} width='150' height='120' alt='breed_dog_image'/>
+                        </div>
                         <Link to={`/dogs/${dog.id || dog.ID}`} style={{ textDecoration: 'none' }}>
                             <span>more details</span>
                         </Link>
