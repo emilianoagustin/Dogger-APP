@@ -1,7 +1,8 @@
 import { React, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogById, clearDog } from '../../actions/actions';
+import { getDogById, clearDog, loading } from '../../actions/actions';
+import Loading from '../Loading/Loading';
 import { DOG_DEFAULT_IMAGE } from '../../constants';
 import './Detail.css';
 
@@ -10,8 +11,10 @@ function Detail() {
 
     const dispatch = useDispatch();
     const dogDetails = useSelector(state => state.dogById);
+    const isLoading = useSelector(state => state.isLoading);
 
     useEffect(() => {
+        dispatch(loading())
         dispatch(getDogById(id))
         return () => {
             dispatch(clearDog())
@@ -20,6 +23,9 @@ function Detail() {
 
     return (
         <div className='container'>
+            {
+            isLoading ? 
+            <Loading /> :
             <div className='detail-section'>
                 <div className='detail-info'>
                     <h1>{dogDetails.name}</h1>
@@ -35,6 +41,7 @@ function Detail() {
                 <p>BACK</p>
             </Link>
             </div>
+            }
         </div>
     )
 }
