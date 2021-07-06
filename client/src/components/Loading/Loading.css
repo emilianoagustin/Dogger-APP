@@ -1,0 +1,17 @@
+.loading-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.loading-img {
+    background: center / contain no-repeat url('../../assets/dog.gif');
+    width: 380px;
+    height: 400px;
+}
+
+.loading-container span {
+    color: #ffffff;
+    font-size: 2.7rem;
+    font-weight: 800;
+    text-align: center;
+}
