@@ -4,7 +4,8 @@ GET_DOGS,
 GET_DOG_BY_ID,
 GET_TEMPERAMENT,
 SET_PAGE_NUMBER,
-CLEAR_DOG
+CLEAR_DOG,
+LOADING
 } from './actionTypes';
 import axios from 'axios';
 import { DOG_URL, CREATE_DOG_URL, TEMPERAMENT_URL} from '../constants';
@@ -15,6 +16,10 @@ export const setPageNumber = (payload) => {
 
 export const clearDog = () => {
     return {type: CLEAR_DOG}
+}
+
+export const loading = () => {
+    return {type: LOADING}
 }
 
 export const getDogs = () => {

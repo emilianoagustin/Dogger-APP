@@ -4,7 +4,8 @@ import {
     GET_TEMPERAMENT, 
     GET_DOG_BY_ID, 
     SET_PAGE_NUMBER,
-    CLEAR_DOG
+    CLEAR_DOG,
+    LOADING
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
     dogs: [],
     dogById: {},
     temperaments: [],
-    pageNumber: 1
+    pageNumber: 1,
+    isLoading: false
 }
 
 export default function rootReducer(state = initialState, action){
@@ -21,18 +23,20 @@ export default function rootReducer(state = initialState, action){
             return {
                     ...state,
                     dogs: [...action.payload],
-                    pageNumber: 1
+                    pageNumber: 1,
+                    isLoading: false
             }
         }
         case GET_DOG_BY_ID:
             return {
                 ...state,
-                dogById: action.payload
+                dogById: action.payload,
+                isLoading: false
             }
         case GET_TEMPERAMENT:{
             return {
                 ...state,
-                temperaments: action.payload
+                temperaments: action.payload,
             }
         }
         case SET_PAGE_NUMBER:
@@ -49,6 +53,11 @@ export default function rootReducer(state = initialState, action){
             return {
                 ...state,
                 dogById: {}
+            }
+        case LOADING:
+            return {
+                ...state,
+                isLoading: true
             }
         default:
             return state;
