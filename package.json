@@ -1,0 +1,24 @@
+{
+  "name": "pi-dogs",
+  "version": "1.0.0",
+  "description": "dogger app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilianoagustin/PI-Dogs-FT13.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "deploy"
+  ],
+  "author": "Emiliano Pintos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emilianoagustin/PI-Dogs-FT13/issues"
+  },
+  "homepage": "https://github.com/emilianoagustin/PI-Dogs-FT13#readme"
+}
