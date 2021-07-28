@@ -2,12 +2,12 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_URL } = process.env;
+const { DB_USER, DB_PASSWORD } = process.env;
 const axios = require('axios');
 const { URL } = require('./constants/constants');
 
 const sequelize = new Sequelize(
-  DB_URL,
+  "postgres://"+DB_USER+":"+DB_PASSWORD+"@ec2-3-231-194-96.compute-1.amazonaws.com:5432/d4d1e9v90ut59c",
   {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
